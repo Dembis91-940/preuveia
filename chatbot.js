@@ -13,6 +13,11 @@
   var WELCOME = cfg.welcome || 'Bonjour ! 👋 Comment puis-je vous aider ?';
   var FAQS = cfg.faqs || [];
   var QUICK = cfg.quick || [];
+  if (cfg.emailjs && !window.emailjs) {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    document.head.appendChild(s);
+  }
 
   function findAnswer(q) {
     var ql = q.toLowerCase();
@@ -103,6 +108,9 @@
       try { leads = JSON.parse(localStorage.getItem('cb_leads') || '[]'); } catch (err) {}
       leads.push({ site: NAME, name: n, email: e, date: new Date().toISOString(), question: lastQuestion });
       localStorage.setItem('cb_leads', JSON.stringify(leads));
+      if (cfg.emailjs && window.emailjs) {
+        try { emailjs.send(cfg.emailjs.serviceId, cfg.emailjs.templateId, { name: n, email: e, question: lastQuestion, site: NAME }); } catch (err) {}
+      }
       form.remove();
       bot('Merci ' + n + ' ! 🙏 Votre demande est enregistrée, on vous répond très vite.');
     };
