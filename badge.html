@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Générateur de badge vérifié — PreuveIA</title>
+<meta name="description" content="Générez votre badge « Authenticité vérifiée » à code unique, récupérez le snippet à coller sur votre site et le lien de vérification publique.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Générateur de badge vérifié — PreuveIA">
+<meta property="og:description" content="Badge à code unique avec checksum anti-fraude, intégrable en 2 minutes sur votre page de vente.">
+<meta property="og:url" content="https://preuveia.fr/badge.html">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://preuveia.fr/badge.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/badge.js"></script>
+<script src="assets/js/common.js"></script>
+</head>
+<body>
+<div class="demo-banner">Mode démonstration locale — analyses simulées côté client, paiement Stripe en mode test (aucun débit réel).</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="fonctionnalites.html">Fonctionnalités</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="verification.html">Vérifier un badge</a>
+      <a class="btn small ghost" href="dashboard.html">Espace membre</a>
+      <a class="btn small accent" href="scan.html">Scanner un contenu</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-mini">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Générateur de badge</div>
+    <h1>Générez votre badge « Authenticité vérifiée »</h1>
+    <p class="sub">Chaque badge porte un code unique PIA-XXXX-XXXX-XXXX avec checksum anti-fraude. Vos acheteurs vérifient en un clic — un code modifié est immédiatement rejeté.</p>
+  </div>
+</section>
+
+<section style="padding-top:24px">
+  <div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
+    <div class="form-card" style="max-width:none">
+      <h1 style="font-size:22px">1. Informations du badge</h1>
+      <div class="field">
+        <label for="bTitre">Titre de la formation</label>
+        <input type="text" id="bTitre" placeholder="Ex. : Créer une formation qui se vend">
+      </div>
+      <div class="field">
+        <label for="bProprio">Nom du créateur</label>
+        <input type="text" id="bProprio" placeholder="Ex. : Claire Fontaine">
+      </div>
+      <div class="field">
+        <label for="bCode">Code unique (généré automatiquement — vérifié par checksum)</label>
+        <input type="text" id="bCode" readonly style="font-family:ui-monospace,monospace;letter-spacing:.08em;background:var(--paper-2)">
+      </div>
+      <button class="btn accent" id="btnGen" style="width:100%">Générer / régénérer le badge</button>
+      <p class="form-note" id="bNote">En production, le badge est lié à votre compte et à un scan validé.</p>
+    </div>
+
+    <div class="badge-card" style="max-width:none">
+      <h3 style="margin-bottom:16px">2. Aperçu</h3>
+      <div class="badge-preview" id="apercu"></div>
+      <h3 style="margin:26px 0 6px">3. À coller sur votre site</h3>
+      <p class="muted" style="font-size:13.5px;margin-bottom:10px">Snippet autonome (SVG + lien de vérification, fonctionne sans JavaScript) :</p>
+      <div class="embed-box" id="embedSvg"></div>
+      <p class="muted" style="font-size:13.5px;margin:16px 0 10px">Variante avec widget JavaScript (auto-rendu) :</p>
+      <div class="embed-box" id="embedWidget"></div>
+      <div class="copy-row">
+        <button class="btn small" id="btnCopySvg">Copier le snippet SVG</button>
+        <button class="btn small ghost" id="btnCopyWidget">Copier le widget JS</button>
+        <a class="btn small green" id="btnVerif" href="verification.html" target="_blank">Voir la page de vérification</a>
+      </div>
+      <p class="form-note" id="copyNote"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Où l'afficher</span>
+    <h2 class="sec center">Le badge trouve sa place partout où vous vendez</h2>
+    <p class="lead-block">Page de vente, page de remerciement, emails de confirmation, signature… Le lien de vérification fonctionne depuis n'importe quel support.</p>
+    <div class="feats">
+      <div class="feat"><div class="ico">🎓</div><h3>Teachable & Gumroad</h3><p>Collez le snippet dans le bloc HTML de la page de vente ou de la description.</p></div>
+      <div class="feat"><div class="ico">🌍</div><h3>WordPress & Webflow</h3><p>Un bloc HTML ou un embed suffit — le rendu est autonome, sans plugin.</p></div>
+      <div class="feat"><div class="ico">📧</div><h3>Emails</h3><p>Joignez le lien de vérification et le PDF du rapport dans vos emails de confirmation.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">✓</span>Preuve<em style="color:#7ea2ff">IA</em></div>
+        <p class="muted" style="max-width:280px">La certification d'authenticité pour créateurs de formations IA.</p>
+      </div>
+      <div>
+        <h4>Produit</h4>
+        <a href="fonctionnalites.html">Fonctionnalités</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="scan.html">Scanner un contenu</a>
+        <a href="badge.html">Générer un badge</a>
+        <a href="verification.html">Vérifier un badge</a>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <a href="comment-ca-marche.html">Comment ça marche</a>
+        <a href="blog/pourquoi-les-acheteurs-se-mefient-de-votre-formation.html">Pourquoi les acheteurs se méfient</a>
+        <a href="blog/ia-ou-humain-comment-prouver-votre-authenticite.html">IA ou humain : prouver votre authenticité</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cgu.html">Conditions générales</a>
+        <a href="dashboard.html">Espace membre</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var P = window.PreuveIA;
+  var codeActuel = '';
+
+  function lireParam(name) {
+    var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+
+  function maj() {
+    var titre = document.getElementById('bTitre').value || 'Formation vérifiée';
+    var proprio = document.getElementById('bProprio').value;
+    var opts = { code: codeActuel, titre: titre, proprietaire: proprio };
+    document.getElementById('apercu').innerHTML = P.Badge.svg(opts);
+    var base = location.href.split('/').slice(0, -1).join('/') + '/';
+    var urlVerif = base + 'verification.html?code=' + encodeURIComponent(codeActuel);
+    document.getElementById('embedSvg').textContent =
+      '<a href="' + urlVerif + '" target="_blank" rel="noopener">\n' +
+      P.Badge.svg(opts).split('\n').map(function (l) { return '  ' + l; }).join('\n') +
+      '\n</a>';
+    document.getElementById('embedWidget').textContent =
+      '<div class="preuveia-badge" data-code="' + codeActuel + '" data-titre="' + titre.replace(/"/g, '&quot;') + '"' +
+      (proprio ? ' data-proprietaire="' + proprio.replace(/"/g, '&quot;') + '"' : '') + ' data-base="' + base + '"></div>\n' +
+      '<script src="' + base + 'assets/js/badge-widget.js"><\/script>';
+    document.getElementById('btnVerif').href = 'verification.html?code=' + encodeURIComponent(codeActuel);
+    // Registre local des badges (démo de la vérification inter-pages)
+    P.Common.addBadge({ code: codeActuel, titre: titre, proprietaire: proprio });
+  }
+
+  document.getElementById('btnGen').addEventListener('click', function () {
+    codeActuel = P.Badge.generateCode();
+    document.getElementById('bCode').value = codeActuel;
+    maj();
+    document.getElementById('bNote').textContent = '✓ Badge généré — code vérifié par checksum. Testez-le sur la page de vérification.';
+  });
+
+  function copier(sel, msg) {
+    var txt = document.getElementById(sel).textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () {
+        document.getElementById('copyNote').textContent = msg;
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); document.getElementById('copyNote').textContent = msg; } catch (e) {}
+      ta.remove();
+    }
+  }
+  document.getElementById('btnCopySvg').addEventListener('click', function () { copier('embedSvg', '✓ Snippet SVG copié.'); });
+  document.getElementById('btnCopyWidget').addEventListener('click', function () { copier('embedWidget', '✓ Widget JS copié.'); });
+
+  ['bTitre', 'bProprio'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', function () { if (codeActuel) maj(); });
+  });
+
+  // Initialisation : code transmis depuis le scan, sinon nouveau code valide
+  var depuisScan = lireParam('code');
+  if (depuisScan && P.Badge.validCode(depuisScan)) {
+    codeActuel = depuisScan;
+  } else {
+    codeActuel = P.Badge.generateCode();
+  }
+  document.getElementById('bCode').value = codeActuel;
+  document.getElementById('bTitre').value = lireParam('titre') || 'Ma formation vérifiée';
+  maj();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comment ça marche — PreuveIA</title>
+<meta name="description" content="Comment PreuveIA analyse vos contenus de formation : collage ou upload, analyse stylistique + API de détection, rapport PDF automatique, badge vérifiable en 4 étapes simples.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Comment ça marche — PreuveIA">
+<meta property="og:description" content="De l'analyse au badge vérifiable en 4 étapes : collage du contenu, analyse, rapport PDF, badge sur votre site.">
+<meta property="og:url" content="https://preuveia.fr/comment-ca-marche.html">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://preuveia.fr/comment-ca-marche.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Comment vérifier l'authenticité d'une formation avec PreuveIA",
+  "step": [
+    {"@type":"HowToStep","position":1,"name":"Collez ou déposez votre contenu","text":"Transcription, script ou chapitres de PDF — au moins 200 caractères."},
+    {"@type":"HowToStep","position":2,"name":"L'analyse s'exécute","text":"Heuristique stylistique locale (4 indicateurs) + API de détection IA en production."},
+    {"@type":"HowToStep","position":3,"name":"Recevez le rapport PDF","text":"Score /100, détail des indicateurs, code unique, daté."},
+    {"@type":"HowToStep","position":4,"name":"Affichez le badge vérifiable","text":"Snippet à coller sur votre page de vente, lien de vérification publique."}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="demo-banner">Mode démonstration locale — analyses simulées côté client, paiement Stripe en mode test (aucun débit réel).</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="fonctionnalites.html">Fonctionnalités</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="verification.html">Vérifier un badge</a>
+      <a class="btn small ghost" href="dashboard.html">Espace membre</a>
+      <a class="btn small accent" href="scan.html">Scanner un contenu</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-mini">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Comment ça marche</div>
+    <h1>De votre transcription au badge vérifiable, en 4 étapes</h1>
+    <p class="sub">Le parcours complet, de la soumission du contenu à l'affichage de la preuve sur votre page de vente.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="steps" style="grid-template-columns:1fr 1fr;margin-bottom:20px">
+      <div class="step"><h3>Collez votre contenu</h3><p>Sur la page de scan, collez votre transcription ou déposez un fichier (.txt, .md, .srt, .vtt, .csv). Minimum 200 caractères — une vraie analyse demande un échantillon significatif.</p></div>
+      <div class="step"><h3>L'analyse s'exécute</h3><p>4 indicateurs stylistiques sont calculés localement (variété des phrases, richesse du vocabulaire, marqueurs IA, répétitions) avec un bonus de vivacité. En production, le résultat est croisé avec des API de détection IA via api.preuveia.fr (60 % local / 40 % API).</p></div>
+      <div class="step"><h3>Recevez le rapport PDF</h3><p>Score /100, verdict, détail des 4 indicateurs, code unique du badge, date du scan. Le PDF se télécharge en un clic et peut être joint à votre page de vente.</p></div>
+      <div class="step"><h3>Affichez le badge</h3><p>Le générateur de badge produit un snippet HTML/SVG à coller sur Teachable, Gumroad, WordPress ou votre site. Chaque badge porte un code unique vérifiable publiquement sur verification.html.</p></div>
+    </div>
+    <p class="center" style="margin-top:30px"><a class="btn accent" href="scan.html">Essayer maintenant</a></p>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="wrap">
+    <span class="kicker">Côté acheteur</span>
+    <h2 class="sec center">Ce que voit votre prospect</h2>
+    <p class="lead-block">Le parcours de vérification est pensé pour durer moins de 10 secondes — pas de compte, pas d'inscription.</p>
+    <div class="steps" style="grid-template-columns:1fr 1fr">
+      <div class="step"><h3>Il clique sur le badge</h3><p>Le badge est un lien : il ouvre la page publique de vérification avec le code unique intégré.</p></div>
+      <div class="step"><h3>Il voit le verdict</h3><p>« Authenticité vérifiée » avec la date du scan et le score. Un code modifié affiche « Badge non reconnu ».</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Architecture</span>
+    <h2 class="sec">Comment fonctionne la démo locale</h2>
+    <p class="lead-block">Cette version de démonstration tourne à 100 % dans le navigateur — aucune dépendance lourde, aucun serveur requis.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Brique</th><th>Fichier</th><th>Rôle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Moteur de score</b></td><td><code>assets/js/scan.js</code></td><td>Heuristique stylistique + placeholder d'API de détection avec fallback local en cas de panne simulée</td></tr>
+          <tr><td><b>Générateur PDF</b></td><td><code>assets/js/pdf.js</code></td><td>PDF 1.4 généré en local (WinAnsiEncoding, xref sur offsets absolus)</td></tr>
+          <tr><td><b>Codes de badge</b></td><td><code>assets/js/badge.js</code></td><td>Codes PIA-XXXX-XXXX-XXXX avec checksum anti-fraude</td></tr>
+          <tr><td><b>Widget intégrable</b></td><td><code>assets/js/badge-widget.js</code></td><td>Snippet autonome pour afficher le badge sur n'importe quel site</td></tr>
+          <tr><td><b>Tarifs</b></td><td><code>assets/js/tarifs.js</code></td><td>Source unique des prix, des quotas et des garanties</td></tr>
+          <tr><td><b>Compte & historique</b></td><td><code>assets/js/common.js</code></td><td>Compte, scans et badges en localStorage (démo)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note-demo" style="margin-top:18px">En production : analyse côté serveur (api.preuveia.fr), base de données des badges, paiement Stripe réel et emails transactionnels.</p>
+  </div>
+</section>
+
+<section class="dark cta">
+  <div class="wrap">
+    <h2>Prêt à voir le score de votre propre contenu ?</h2>
+    <p class="sub">30 secondes, gratuit, sans carte.</p>
+    <div class="hero-cta"><a class="btn green" href="scan.html">Scanner un contenu gratuitement</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">✓</span>Preuve<em style="color:#7ea2ff">IA</em></div>
+        <p class="muted" style="max-width:280px">La certification d'authenticité pour créateurs de formations IA.</p>
+      </div>
+      <div>
+        <h4>Produit</h4>
+        <a href="fonctionnalites.html">Fonctionnalités</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="scan.html">Scanner un contenu</a>
+        <a href="badge.html">Générer un badge</a>
+        <a href="verification.html">Vérifier un badge</a>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <a href="comment-ca-marche.html">Comment ça marche</a>
+        <a href="blog/pourquoi-les-acheteurs-se-mefient-de-votre-formation.html">Pourquoi les acheteurs se méfient</a>
+        <a href="blog/ia-ou-humain-comment-prouver-votre-authenticite.html">IA ou humain : prouver votre authenticité</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cgu.html">Conditions générales</a>
+        <a href="dashboard.html">Espace membre</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+  </div>
+</footer>
+</body>
+</html>

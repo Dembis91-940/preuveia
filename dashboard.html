@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace membre — PreuveIA</title>
+<meta name="description" content="Votre espace membre PreuveIA : historique des scans, registre des badges, quota mensuel, export des données.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://preuveia.fr/dashboard.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/tarifs.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</head>
+<body>
+<div class="demo-banner">Mode démonstration locale — compte, scans et badges stockés dans ce navigateur (localStorage).</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="fonctionnalites.html">Fonctionnalités</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="verification.html">Vérifier un badge</a>
+      <a class="btn small ghost" href="dashboard.html">Espace membre</a>
+      <a class="btn small accent" href="scan.html">Scanner un contenu</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding-top:56px">
+  <div class="wrap">
+    <div class="dash-top">
+      <div>
+        <div class="breadcrumb" style="margin-bottom:4px"><a href="index.html">Accueil</a> / Espace membre</div>
+        <h1 style="font-size:clamp(26px,3.4vw,34px">Bonjour, <span id="dashNom">—</span> 👋</h1>
+        <p class="muted" id="dashSousTitre" style="font-size:14.5px"></p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn small accent" href="scan.html">+ Nouveau scan</a>
+        <a class="btn small ghost" href="badge.html">Générer un badge</a>
+        <button class="btn small ghost" id="btnExport">Exporter mes données (JSON)</button>
+        <button class="btn small" id="btnLogout">Déconnexion</button>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-card"><div class="v" id="kpiPlan">—</div><div class="l">Formule active</div></div>
+      <div class="dash-card"><div class="v" id="kpiQuota">—</div><div class="l">Scans restants ce mois-ci</div></div>
+      <div class="dash-card"><div class="v" id="kpiEssai">—</div><div class="l">Jours d'essai restants</div></div>
+    </div>
+
+    <h2 style="font-size:20px;margin-bottom:14px">Historique des scans</h2>
+    <div class="table-wrap" style="margin-bottom:34px">
+      <div id="scansVide" class="empty">Aucun scan pour le moment.<br><a href="scan.html">Scanner votre premier contenu →</a></div>
+      <table id="scansTable" style="display:none">
+        <thead><tr><th>Date</th><th>Titre</th><th>Score</th><th>Verdict</th><th>Code</th><th></th></tr></thead>
+        <tbody id="scansBody"></tbody>
+      </table>
+    </div>
+
+    <h2 style="font-size:20px;margin-bottom:14px">Registre des badges émis</h2>
+    <div class="table-wrap">
+      <div id="badgesVide" class="empty">Aucun badge généré.<br><a href="badge.html">Générer votre premier badge →</a></div>
+      <table id="badgesTable" style="display:none">
+        <thead><tr><th>Code</th><th>Formation</th><th>Propriétaire</th><th>Émis le</th><th></th></tr></thead>
+        <tbody id="badgesBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer style="margin-top:60px">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">✓</span>Preuve<em style="color:#7ea2ff">IA</em></div>
+        <p class="muted" style="max-width:280px">La certification d'authenticité pour créateurs de formations IA.</p>
+      </div>
+      <div>
+        <h4>Produit</h4>
+        <a href="fonctionnalites.html">Fonctionnalités</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="scan.html">Scanner un contenu</a>
+        <a href="badge.html">Générer un badge</a>
+        <a href="verification.html">Vérifier un badge</a>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <a href="comment-ca-marche.html">Comment ça marche</a>
+        <a href="blog/pourquoi-les-acheteurs-se-mefient-de-votre-formation.html">Pourquoi les acheteurs se méfient</a>
+        <a href="blog/ia-ou-humain-comment-prouver-votre-authenticite.html">IA ou humain : prouver votre authenticité</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cgu.html">Conditions générales</a>
+        <a href="dashboard.html">Espace membre</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var P = window.PreuveIA;
+
+  var compte = P.Common.getCompte();
+  if (!compte) {
+    location.href = 'inscription.html';
+    return;
+  }
+
+  var plan = P.TARIFS.plan(compte.plan) || { nom: compte.plan, prix: '—' };
+  document.getElementById('dashNom').textContent = compte.nom;
+  document.getElementById('dashSousTitre').textContent = compte.email + ' — inscrit le ' + P.Common.formatDate(compte.depuis) +
+    (compte.paiement === 'test-simule' ? ' — paiement simulé (mode test)' : '');
+  document.getElementById('kpiPlan').textContent = plan.nom + ' — ' + plan.prix + ' €/mois';
+
+  var quota = P.Common.quotaRestant(compte);
+  document.getElementById('kpiQuota').textContent = quota === null ? '∞' : String(quota) + ' / ' + P.TARIFS.quotaScans(compte.plan);
+  var jr = P.Dashboard.joursRestantsEssai(compte);
+  document.getElementById('kpiEssai').textContent = jr === null ? '—' : String(jr) + ' j';
+
+  // Scans
+  var scans = P.Common.getScans();
+  if (scans.length) {
+    document.getElementById('scansVide').style.display = 'none';
+    document.getElementById('scansTable').style.display = 'table';
+    var sb = document.getElementById('scansBody');
+    scans.forEach(function (s) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + P.Common.formatDate(s.date) + '</td>' +
+        '<td>' + (s.titre || 'Sans titre') + '</td>' +
+        '<td><b>' + s.score + '/100</b></td>' +
+        '<td><span class="pill ' + (s.classe || 'gray') + '">' + (s.verdict || '—') + '</span></td>' +
+        '<td style="font-family:ui-monospace,monospace;font-size:13px">' + s.code + '</td>' +
+        '<td><a href="verification.html?code=' + encodeURIComponent(s.code) + '">Vérifier</a></td>';
+      sb.appendChild(tr);
+    });
+  }
+
+  // Badges
+  var badges = P.Common.getBadges();
+  if (badges.length) {
+    document.getElementById('badgesVide').style.display = 'none';
+    document.getElementById('badgesTable').style.display = 'table';
+    var bb = document.getElementById('badgesBody');
+    badges.forEach(function (b) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td style="font-family:ui-monospace,monospace;font-size:13px">' + b.code + '</td>' +
+        '<td>' + (b.titre || '—') + '</td>' +
+        '<td>' + (b.proprietaire || '—') + '</td>' +
+        '<td>' + P.Common.formatDate(b.date) + '</td>' +
+        '<td><a href="verification.html?code=' + encodeURIComponent(b.code) + '">Vérifier</a></td>';
+      bb.appendChild(tr);
+    });
+  }
+
+  document.getElementById('btnExport').addEventListener('click', function () {
+    var contenu = P.Dashboard.exporterJSON(compte, scans, badges);
+    if (!P.Common.telecharger('preuveia-export-' + new Date().toISOString().slice(0, 10) + '.json', contenu, 'application/json')) {
+      alert('Export non disponible dans ce navigateur (démo).');
+    }
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', function () {
+    P.Common.clearCompte();
+    location.href = 'inscription.html';
+  });
+
+  if (location.search.indexOf('bienvenue=1') !== -1) {
+    var b = document.createElement('div');
+    b.className = 'demo-banner';
+    b.style.background = 'var(--accent-2-soft)';
+    b.style.color = 'var(--accent-2)';
+    b.textContent = '✓ Compte créé (paiement simulé) — bienvenue ! Un email de bienvenue vous a été « envoyé » (voir emails/bienvenue.html).';
+    document.body.insertBefore(b, document.body.firstChild);
+  }
+})();
+</script>
+</body>
+</html>

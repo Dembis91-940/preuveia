@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Votre essai PreuveIA vous attend — {{prenom}}</title>
+</head>
+<body style="margin:0;padding:0;background:#f2f0ea;font-family:Arial,Helvetica,sans-serif;color:#111827;">
+<!-- SUJET : Votre badge « Authenticité vérifiée » n'attend plus que vous -->
+<div style="max-width:600px;margin:0 auto;background:#ffffff;border:1px solid #e5e1d8;">
+  <div style="background:#1649c4;padding:28px 32px;color:#ffffff;">
+    <div style="font-size:22px;font-weight:bold;">Preuve<span style="color:#9db8ff;">IA</span></div>
+    <div style="font-size:14px;opacity:.85;margin-top:4px;">On a vu que vous hésitiez…</div>
+  </div>
+  <div style="padding:32px;">
+    <h1 style="font-size:22px;margin:0 0 14px;color:#111827;">Votre panier vous attend, {{prenom}} 🛡️</h1>
+    <p style="font-size:15px;line-height:1.6;margin:0 0 16px;color:#374151;">Vous étiez à deux doigts de créer votre compte <b>{{plan_nom}} — {{plan_prix}} €/mois</b>. Voici pourquoi c'est le bon moment :</p>
+    <ul style="font-size:15px;line-height:1.7;color:#374151;margin:0 0 20px;padding-left:22px;">
+      <li>Essai gratuit <b>7 jours, sans carte</b> — vous ne payez que si vous continuez.</li>
+      <li>Votre premier <b>rapport PDF + badge vérifiable</b> en moins de 5 minutes.</li>
+      <li>Garantie <b>14 jours satisfait ou remboursé</b>, résiliation en un clic.</li>
+      <li>Une seule vente de formation rembourse 1 à 2 mois d'abonnement.</li>
+    </ul>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;">
+      <tr>
+        <td style="background:#1649c4;border-radius:999px;padding:13px 26px;">
+          <a href="{{lien_panier}}" style="color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;">Reprendre mon inscription →</a>
+        </td>
+      </tr>
+    </table>
+    <p style="font-size:14px;line-height:1.6;margin:0 0 8px;color:#6b7280;">Petit exemple concret : une formation vendue 79 € couvre plus d'un mois de plan Créateur. Le badge peut faire la différence sur exactement une vente — et tout est rentabilisé.</p>
+    <p style="font-size:13px;color:#6b7280;margin:0;">Cet email ne vous convient pas ? Une question ? Répondez simplement : un humain vous répond.</p>
+  </div>
+  <div style="background:#f2f0ea;padding:20px 32px;font-size:12px;color:#6b7280;line-height:1.6;">
+    PreuveIA — certification d'authenticité pour créateurs de formations IA.<br>
+    Vous recevez cet email car vous avez commencé une inscription. Gérer mes préférences : {{lien_preferences}} · Me désabonner : {{lien_desabonnement}}
+  </div>
+</div>
+</body>
+</html>

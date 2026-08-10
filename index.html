@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PreuveIA — Prouvez l'authenticité de votre formation IA</title>
+<meta name="description" content="PreuveIA analyse vos contenus de formation (transcriptions, PDF, scripts) et délivre un rapport PDF + un badge « Authenticité vérifiée » que vos acheteurs peuvent contrôler. Dès 29 €/mois, essai 7 jours sans carte.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PreuveIA — Prouvez l'authenticité de votre formation IA">
+<meta property="og:description" content="Rapport PDF + badge « Authenticité vérifiée » pour les créateurs de formations IA. Vos acheteurs vérifient, vous vendez. Dès 29 €/mois.">
+<meta property="og:url" content="https://preuveia.fr/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PreuveIA — Prouvez l'authenticité de votre formation IA">
+<meta name="twitter:description" content="Rapport PDF + badge « Authenticité vérifiée » pour les créateurs de formations IA. Dès 29 €/mois.">
+<link rel="canonical" href="https://preuveia.fr/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "PreuveIA",
+  "url": "https://preuveia.fr",
+  "description": "Certification d'authenticité pour créateurs de formations IA : analyse des contenus, rapport PDF et badge vérifiable.",
+  "sameAs": ["https://x.com/preuveia", "https://www.linkedin.com/company/preuveia"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "PreuveIA",
+  "url": "https://preuveia.fr"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"PreuveIA détecte-t-il vraiment l'IA ?","acceptedAnswer":{"@type":"Answer","text":"Le scan combine une analyse stylistique locale (variété des phrases, vocabulaire, marqueurs typiques) et, en production, des API de détection IA (GPTZero, Copyleaks, classifieur maison). Cette version de démonstration exécute l'analyse localement, l'appel API étant simulé."}},
+    {"@type":"Question","name":"Que contient le badge « Authenticité vérifiée » ?","acceptedAnswer":{"@type":"Answer","text":"Un code unique PIA-XXXX-XXXX-XXXX. Vos acheteurs le vérifient en une seconde sur la page publique de vérification. Un code invalide ou modifié est immédiatement rejeté."}},
+    {"@type":"Question","name":"Puis-je essayer avant de payer ?","acceptedAnswer":{"@type":"Answer","text":"Oui : essai gratuit de 7 jours, sans carte bancaire, sur tous les plans. Garantie satisfait ou remboursé 14 jours."}},
+    {"@type":"Question","name":"Mes contenus sont-ils utilisés pour entraîner des modèles ?","acceptedAnswer":{"@type":"Answer","text":"Non. Vos contenus ne sont jamais utilisés pour entraîner un modèle, ni revendus. Ils servent uniquement à produire votre rapport et sont supprimés après analyse."}}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="demo-banner">Mode démonstration locale — analyses simulées côté client, paiement Stripe en mode test (aucun débit réel).</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
+    <nav class="nav-links">
+      <a href="fonctionnalites.html">Fonctionnalités</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="comment-ca-marche.html">Comment ça marche</a>
+      <a href="verification.html">Vérifier un badge</a>
+      <a class="btn small ghost" href="dashboard.html">Espace membre</a>
+      <a class="btn small accent" href="scan.html">Scanner un contenu</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Certification d'authenticité pour créateurs de formations</span>
+    <h1>Vos élèves doutent de votre formation.<br><em>Prouvez-la.</em></h1>
+    <p class="sub">L'IA permet de générer un « cours » en 20 minutes : la méfiance est devenue structurelle. PreuveIA analyse vos contenus et délivre un rapport PDF + un badge vérifiable qui transforme le doute en confiance — et la confiance en ventes.</p>
+    <div class="hero-cta">
+      <a class="btn accent" href="scan.html">Scanner un contenu gratuitement</a>
+      <a class="btn ghost" href="tarifs.html">Voir les tarifs</a>
+    </div>
+    <p class="trust">Essai gratuit <b>7 jours sans carte</b> · Garantie <b>14 jours</b> · Résiliable en 1 clic</p>
+    <div class="hero-visual">
+      <div class="ring-wrap">
+        <div class="ring" style="--p:91">
+          <div class="num">91<small>/100</small></div>
+        </div>
+        <div class="ring-label ok">Authenticité vérifiée</div>
+        <div class="ring-sub">Formation « Créer une formation qui se vend » — Claire Fontaine</div>
+        <div class="hero-tags">
+          <span class="tag">Rapport PDF automatique</span>
+          <span class="tag">Badge à code unique</span>
+          <span class="tag">Vérification publique</span>
+        </div>
+        <p style="margin-top:16px;font-size:14px"><a href="verification.html?code=PIA-292S-2BUS-VU22">Vérifier un exemple de badge →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="v">3 200+</div><div class="l">contenus analysés depuis la bêta*</div></div>
+      <div class="stat"><div class="v">94 %</div><div class="l">des acheteurs consultent la preuve avant d'acheter*</div></div>
+      <div class="stat"><div class="v">+38 %</div><div class="l">de conversion sur les pages avec badge*</div></div>
+      <div class="stat"><div class="v">30 s</div><div class="l">pour recevoir votre rapport PDF</div></div>
+    </div>
+    <p class="note-demo">*Chiffres illustratifs, issus de la phase de test — à remplacer par vos données réelles après lancement.</p>
+  </div>
+</section>
+
+<section class="problem">
+  <div class="wrap problem-grid">
+    <div>
+      <span class="kicker">Le problème</span>
+      <h2>La méfiance vous coûte des ventes,<br>même à vous qui faites un vrai travail.</h2>
+      <p class="lead">Depuis que n'importe quel contenu peut être généré en quelques minutes, vos prospects se demandent : « Et si cette formation était du remplissage IA ? » Les preuves classiques ne suffisent plus.</p>
+      <ul class="problem-list">
+        <li>Les captures d'avis se fabriquent en deux minutes avec une IA</li>
+        <li>Les « garanties de qualité » sont des promesses, pas des preuves</li>
+        <li>Les meilleurs créateurs sont les plus pénalisés : leur travail authentique n'est pas démontrable</li>
+        <li>Résultat : paniers abandonnés, comparateurs interminables, ventes perdues</li>
+      </ul>
+    </div>
+    <div>
+      <div class="ring-wrap">
+        <div class="ring" style="--p:44;--c:#b45309">
+          <div class="num">44<small>/100</small></div>
+        </div>
+        <div class="ring-label" style="color:var(--warn)">Signes de génération IA</div>
+        <div class="ring-sub">Exemple de contenu généré automatiquement — détecté en 30 secondes</div>
+        <div class="hero-tags">
+          <span class="tag">Formules génériques</span>
+          <span class="tag">Phrases uniformes</span>
+          <span class="tag">Marqueurs typiques</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <span class="kicker">Comment ça marche</span>
+    <h2 class="sec center">Votre preuve en 4 étapes</h2>
+    <p class="lead-block">De l'analyse au badge affiché sur votre page de vente : moins de 5 minutes.</p>
+    <div class="steps">
+      <div class="step"><h3>Collez votre contenu</h3><p>Transcription, script, chapitres de PDF : collez le texte ou déposez un fichier sur la page de scan.</p></div>
+      <div class="step"><h3>L'analyse tourne</h3><p>Heuristique stylistique locale (variété des phrases, vocabulaire, marqueurs) + API de détection IA en production.</p></div>
+      <div class="step"><h3>Recevez le rapport PDF</h3><p>Score d'authenticité /100, détail des indicateurs, code unique. Téléchargeable et daté.</p></div>
+      <div class="step"><h3>Affichez le badge</h3><p>Un widget à coller sur votre site. Vos acheteurs cliquent et vérifient le code en 1 seconde.</p></div>
+    </div>
+    <p class="center" style="margin-top:36px"><a class="btn" href="comment-ca-marche.html">Voir le détail complet</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Pourquoi PreuveIA</span>
+    <h2 class="sec center">Six raisons de rendre votre travail vérifiable</h2>
+    <p class="lead-block">Un badge PreuveIA n'est pas un sticker : c'est un système de preuve complet.</p>
+    <div class="feats">
+      <div class="feat"><div class="ico">🔍</div><h3>Analyse multi-signaux</h3><p>Variété des phrases, richesse du vocabulaire, marqueurs typiques, répétitions — puis croisement avec des API de détection en production.</p></div>
+      <div class="feat"><div class="ico">📄</div><h3>Rapport PDF automatique</h3><p>Généré en 30 secondes, daté, avec le détail des indicateurs et votre code unique. Idéal à joindre à vos pages de vente.</p></div>
+      <div class="feat"><div class="ico">🛡️</div><h3>Badge à code unique</h3><p>Chaque badge porte un code PIA-XXXX-XXXX-XXXX avec checksum anti-fraude. Modifiez un caractère : le badge est rejeté.</p></div>
+      <div class="feat"><div class="ico">🌐</div><h3>Vérification publique</h3><p>Une page de vérification ouverte à tous : vos acheteurs contrôlent votre badge sans compte, sans inscription.</p></div>
+      <div class="feat"><div class="ico">🔒</div><h3>Vos contenus restent à vous</h3><p>Jamais utilisés pour entraîner un modèle, jamais revendus. Supprimés après analyse (option auto-suppression).</p></div>
+      <div class="feat"><div class="ico">⚡</div><h3>Intégrable en 2 minutes</h3><p>Un snippet à coller sur Teachable, Gumroad, WordPress ou votre site. Pas de développement, pas de maintenance.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="wrap report-grid">
+    <div>
+      <span class="kicker">Le rapport</span>
+      <h2 class="sec">Un document que vous pouvez montrer</h2>
+      <p class="lead" style="font-size:17px;color:var(--muted);margin-bottom:8px">Le rapport PDF reprend tout ce dont un acheteur prudent a besoin :</p>
+      <ul class="report-list">
+        <li>Score d'authenticité sur 100 avec verdict clair</li>
+        <li>Détail des 4 indicateurs analysés, barres à l'appui</li>
+        <li>Code unique du badge + lien de vérification publique</li>
+        <li>Date du scan, titre et auteur du contenu</li>
+        <li>Mention de la méthode (heuristique + API de détection)</li>
+        <li>Téléchargement en un clic, prêt à joindre à votre tunnel de vente</li>
+      </ul>
+    </div>
+    <div class="sample" style="background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);font-size:14px">
+      <h4 style="font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:14px">Aperçu du rapport</h4>
+      <div class="kpis" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px">
+        <div class="kpi" style="background:var(--paper-2);border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700">88</div><div style="font-size:12px;color:var(--muted)">Score /100</div></div>
+        <div class="kpi" style="background:var(--paper-2);border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--accent-2)">Vérifié</div><div style="font-size:12px;color:var(--muted)">Verdict</div></div>
+        <div class="kpi" style="background:var(--paper-2);border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700">PIA-…</div><div style="font-size:12px;color:var(--muted)">Code unique</div></div>
+      </div>
+      <div class="bar"><div class="row"><span>Variété des phrases</span><b>84</b></div><div class="track"><div class="fill blue" style="width:84%"></div></div></div>
+      <div class="bar"><div class="row"><span>Richesse du vocabulaire</span><b>79</b></div><div class="track"><div class="fill blue" style="width:79%"></div></div></div>
+      <div class="bar"><div class="row"><span>Absence de marqueurs IA</span><b>100</b></div><div class="track"><div class="fill green" style="width:100%"></div></div></div>
+      <div class="bar"><div class="row"><span>Peu de répétitions</span><b>91</b></div><div class="track"><div class="fill green" style="width:91%"></div></div></div>
+      <p class="note" style="font-size:12px;color:var(--muted);margin-top:14px">Rapport généré automatiquement par PreuveIA — version démo.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Ils prouvent, ils vendent</span>
+    <h2 class="sec center">Des créateurs qui ont transformé le doute en argument de vente</h2>
+    <p class="note-demo" style="margin-bottom:34px">Témoignages illustratifs — à remplacer par de vrais retours clients après la bêta.</p>
+    <div class="testis">
+      <div class="testi">
+        <p class="quote">« J'ai mis le badge sur ma page Gumroad le jour même. Un acheteur m'a écrit : "c'est la première fois que je peux vérifier avant d'acheter". Mon taux de conversion a suivi. »</p>
+        <div class="who"><div class="ava">CF</div><div class="meta"><div class="name">Claire Fontaine</div><div class="role">Formatrice UX — 1 200 élèves</div></div></div>
+      </div>
+      <div class="testi">
+        <p class="quote">« Je vends des formations sur le prompt engineering. La moitié de mes prospects me demandait si c'était du "contenu généré". Maintenant je réponds : scannez mon rapport. »</p>
+        <div class="who"><div class="ava">MD</div><div class="meta"><div class="name">Mehdi Diallo</div><div class="role">Créateur de formations IA — Teachable</div></div></div>
+      </div>
+      <div class="testi">
+        <p class="quote">« Le rapport PDF a débloqué deux ventes B2B : les responsables formation de mes clients veulent une preuve traçable. Le badge fait partie de mes supports de vente. »</p>
+        <div class="who"><div class="ava">AS</div><div class="meta"><div class="name">Anaïs Serrano</div><div class="role">Coach data — formations en ligne</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="tarifs">
+  <div class="wrap">
+    <span class="kicker">Tarifs</span>
+    <h2 class="sec center">Un prix qui se rembourse avec une seule vente</h2>
+    <p class="lead-block">Essai gratuit 7 jours, sans carte bancaire. Garantie satisfait ou remboursé 14 jours. Résiliable à tout moment.</p>
+    <div class="plans">
+      <div class="plan">
+        <h3>Authenticité</h3>
+        <div class="price">29 €<span class="per">/mois</span></div>
+        <div class="tagline">Pour valider vos premiers contenus et rassurer vos premiers acheteurs.</div>
+        <ul>
+          <li>10 scans de contenu / mois</li>
+          <li>Rapport PDF d'authenticité</li>
+          <li>Badge « Authenticité vérifiée »</li>
+          <li>Page publique de vérification</li>
+          <li>Essai gratuit 7 jours, sans carte</li>
+        </ul>
+        <a class="btn ghost" href="inscription.html?plan=authenticite">Essayer 7 jours gratuits</a>
+      </div>
+      <div class="plan featured">
+        <div class="tag">Le plus choisi</div>
+        <h3>Créateur</h3>
+        <div class="price">49 €<span class="per">/mois</span></div>
+        <div class="tagline">Pour les créateurs qui vivent de leurs formations, au quotidien.</div>
+        <ul>
+          <li>Scans illimités</li>
+          <li>Rapport PDF personnalisé (logo, couleurs)</li>
+          <li>Badge « Authenticité vérifiée » + variantes</li>
+          <li>Vérification illimitée des badges</li>
+          <li>Support prioritaire (réponse &lt; 24 h)</li>
+          <li>Historique complet + export des rapports</li>
+        </ul>
+        <a class="btn accent" href="inscription.html?plan=createur">Choisir Créateur</a>
+      </div>
+      <div class="plan">
+        <h3>Académie</h3>
+        <div class="price">79 €<span class="per">/mois</span></div>
+        <div class="tagline">Pour les studios et équipes qui publient plusieurs formations.</div>
+        <ul>
+          <li>Tout le plan Créateur</li>
+          <li>5 sièges (équipe, assistants)</li>
+          <li>Scans multi-formats (transcriptions, PDF, scripts)</li>
+          <li>API d'analyse (accès programme)</li>
+          <li>SLA de disponibilité 99,9 %</li>
+          <li>Accompagnement à la mise en place</li>
+        </ul>
+        <a class="btn ghost" href="inscription.html?plan=academie">Choisir Académie</a>
+      </div>
+    </div>
+    <div class="guarantee"><span style="font-size:26px">🛡️</span><div><b>Garantie 14 jours satisfait ou remboursé.</b> Si PreuveIA ne vous apporte pas la preuve attendue, on vous rembourse — sans questionnaire.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">FAQ</span>
+    <h2 class="sec center">Questions fréquentes</h2>
+    <div class="faq" style="margin-top:40px">
+      <details open>
+        <summary>PreuveIA détecte-t-il vraiment l'IA ?</summary>
+        <div class="a">Le scan combine une analyse stylistique locale (variété des phrases, richesse du vocabulaire, marqueurs typiques de génération, répétitions) et, en production, des API de détection IA reconnues (GPTZero, Copyleaks, classifieur maison) via notre API. Cette version de démonstration exécute l'analyse localement : l'appel API est simulé et clairement indiqué.</div>
+      </details>
+      <details>
+        <summary>Que garantit le badge « Authenticité vérifiée » ?</summary>
+        <div class="a">Le badge atteste que le contenu scanné a obtenu un score d'authenticité supérieur au seuil défini, à une date donnée, avec un code unique vérifiable publiquement. Il ne garantit pas la qualité pédagogique — il prouve que le contenu n'est pas du remplissage généré automatiquement.</div>
+      </details>
+      <details>
+        <summary>Mes contenus sont-ils utilisés pour entraîner des modèles ?</summary>
+        <div class="a">Non, jamais. Vos contenus servent uniquement à produire votre rapport, ne sont pas revendus et peuvent être supprimés automatiquement après analyse (option disponible dans les réglages).</div>
+      </details>
+      <details>
+        <summary>Puis-je afficher le badge sur n'importe quelle plateforme ?</summary>
+        <div class="a">Oui. Le badge est un snippet HTML/SVG autonome : Teachable, Gumroad, WordPress, Shopify, page Notion ou site sur mesure. Le lien de vérification fonctionne partout.</div>
+      </details>
+      <details>
+        <summary>Que se passe-t-il si quelqu'un copie mon badge ?</summary>
+        <div class="a">Le code unique est vérifié côté public : une copie du visuel sans code valide (ou avec un code modifié) affiche « Badge non reconnu ». En production, la vérification s'appuie sur un registre central des badges.</div>
+      </details>
+      <details>
+        <summary>Puis-je résilier à tout moment ?</summary>
+        <div class="a">Oui, en un clic depuis votre espace membre. Vos rapports déjà générés restent téléchargeables pendant 30 jours.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="dark cta">
+  <div class="wrap">
+    <span class="kicker" style="color:#7ea2ff">Prêt à prouver votre travail ?</span>
+    <h2>La confiance se construit avec des preuves,<br>pas des promesses.</h2>
+    <p class="sub">Scannez votre premier contenu en 30 secondes. Gratuit, sans carte, pendant 7 jours.</p>
+    <div class="hero-cta">
+      <a class="btn green" href="scan.html">Scanner un contenu gratuitement</a>
+      <a class="btn ghost" style="color:#fff;box-shadow:inset 0 0 0 1.5px #3a4152" href="tarifs.html">Voir les tarifs</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">✓</span>Preuve<em style="color:#7ea2ff">IA</em></div>
+        <p class="muted" style="max-width:280px">La certification d'authenticité pour créateurs de formations IA. Analyse, rapport PDF, badge vérifiable.</p>
+      </div>
+      <div>
+        <h4>Produit</h4>
+        <a href="fonctionnalites.html">Fonctionnalités</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="scan.html">Scanner un contenu</a>
+        <a href="badge.html">Générer un badge</a>
+        <a href="verification.html">Vérifier un badge</a>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <a href="comment-ca-marche.html">Comment ça marche</a>
+        <a href="blog/pourquoi-les-acheteurs-se-mefient-de-votre-formation.html">Pourquoi les acheteurs se méfient</a>
+        <a href="blog/ia-ou-humain-comment-prouver-votre-authenticite.html">IA ou humain : prouver votre authenticité</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cgu.html">Conditions générales</a>
+        <a href="dashboard.html">Espace membre</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test, témoignages et statistiques illustratifs.</div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vérifier un badge — PreuveIA</title>
+<meta name="description" content="Vérifiez publiquement un badge « Authenticité vérifiée » PreuveIA grâce à son code unique PIA-XXXX-XXXX-XXXX. Contrôle de checksum anti-fraude en une seconde.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vérifier un badge — PreuveIA">
+<meta property="og:description" content="Contrôlez l'authenticité d'un badge PreuveIA : entrez le code unique ou ouvrez le lien de vérification.">
+<meta property="og:url" content="https://preuveia.fr/verification.html">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://preuveia.fr/verification.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Vérification de badge PreuveIA",
+  "url": "https://preuveia.fr/verification.html",
+  "description": "Page publique de vérification des badges « Authenticité vérifiée » PreuveIA."
+}
+</script>
+<script src="assets/js/badge.js"></script>
+<script src="assets/js/common.js"></script>
+</head>
+<body>
+<div class="demo-banner">Mode démonstration locale — la vérification s'appuie sur le checksum du code et le registre local de badges (en production : registre centralisé).</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="fonctionnalites.html">Fonctionnalités</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="comment-ca-marche.html">Comment ça marche</a>
+      <a class="btn small ghost" href="dashboard.html">Espace membre</a>
+      <a class="btn small accent" href="scan.html">Scanner un contenu</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-mini">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Vérification</div>
+    <h1>Vérification publique de badge</h1>
+    <p class="sub">Entrez un code PIA-XXXX-XXXX-XXXX — ou ouvrez le lien fourni par le créateur. Le checksum détecte toute altération.</p>
+  </div>
+</section>
+
+<section style="padding-top:24px">
+  <div class="wrap">
+    <div class="verify-card">
+      <div id="etatInconnu">
+        <div class="verify-icon neutral">🔎</div>
+        <h2 style="font-size:24px;margin-bottom:6px">Entrez le code du badge</h2>
+        <p class="muted" style="font-size:14.5px;margin-bottom:20px">Le code figure sur le badge ou dans le rapport PDF du créateur.</p>
+        <form id="formVerif" style="display:flex;gap:10px">
+          <input type="text" id="inputCode" placeholder="PIA-XXXX-XXXX-XXXX" style="flex:1;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;font-family:ui-monospace,monospace;letter-spacing:.05em;text-transform:uppercase">
+          <button class="btn accent" type="submit">Vérifier</button>
+        </form>
+        <p class="form-note" id="verifErr" style="color:var(--danger);display:none">Format invalide — un code PreuveIA ressemble à PIA-XXXX-XXXX-XXXX.</p>
+        <p class="form-note">Exemple : <a href="verification.html?code=PIA-292S-2BUS-VU22">PIA-292S-2BUS-VU22</a></p>
+      </div>
+      <div id="etatOk" style="display:none">
+        <div class="verify-icon ok">✓</div>
+        <h2 style="font-size:24px;margin-bottom:4px">Authenticité vérifiée</h2>
+        <p class="muted" style="font-size:14.5px">Ce badge est valide et non altéré.</p>
+        <div class="verify-code" id="codeOk"></div>
+        <div class="badge-preview" id="svgOk" style="margin-top:8px"></div>
+        <div class="verify-meta" id="metaOk"></div>
+      </div>
+      <div id="etatKo" style="display:none">
+        <div class="verify-icon bad">✕</div>
+        <h2 style="font-size:24px;margin-bottom:4px">Badge non reconnu</h2>
+        <p class="muted" style="font-size:14.5px">Le code saisi ne correspond pas à un badge PreuveIA valide : format incorrect, checksum invalide ou code altéré.</p>
+        <div class="verify-code" id="codeKo" style="color:var(--danger)"></div>
+        <p class="form-note">Vérifiez le code sur le badge du créateur, puis <a href="verification.html">réessayez</a>.</p>
+      </div>
+    </div>
+    <p class="note-demo" style="margin-top:24px">Comment fonctionne la vérification : le code PIA suit un format strict (alphabet sans ambiguïté) et porte un checksum de 4 caractères dérivé des 8 premiers. Toute modification d'un caractère produit un checksum différent → le badge est rejeté. En production, la vérification s'appuie aussi sur un registre central des badges émis.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">✓</span>Preuve<em style="color:#7ea2ff">IA</em></div>
+        <p class="muted" style="max-width:280px">La certification d'authenticité pour créateurs de formations IA.</p>
+      </div>
+      <div>
+        <h4>Produit</h4>
+        <a href="fonctionnalites.html">Fonctionnalités</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="scan.html">Scanner un contenu</a>
+        <a href="badge.html">Générer un badge</a>
+        <a href="verification.html">Vérifier un badge</a>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <a href="comment-ca-marche.html">Comment ça marche</a>
+        <a href="blog/pourquoi-les-acheteurs-se-mefient-de-votre-formation.html">Pourquoi les acheteurs se méfient</a>
+        <a href="blog/ia-ou-humain-comment-prouver-votre-authenticite.html">IA ou humain : prouver votre authenticité</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cgu.html">Conditions générales</a>
+        <a href="dashboard.html">Espace membre</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var P = window.PreuveIA;
+
+  function lireParam(name) {
+    var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+    return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+  }
+
+  function verifier(code) {
+    var etats = { inconnu: document.getElementById('etatInconnu'), ok: document.getElementById('etatOk'), ko: document.getElementById('etatKo') };
+    var valide = P.Badge.validCode(code);
+    if (!valide) {
+      etats.inconnu.style.display = 'none'; etats.ok.style.display = 'none'; etats.ko.style.display = 'block';
+      document.getElementById('codeKo').textContent = code ? code.toUpperCase() : '—';
+      return;
+    }
+    // Registre local : infos éventuelles du badge (démo)
+    var registre = P.Common.getBadges().filter(function (b) { return b.code === code.toUpperCase(); })[0] || null;
+    etats.inconnu.style.display = 'none'; etats.ko.style.display = 'none'; etats.ok.style.display = 'block';
+    document.getElementById('codeOk').textContent = code.toUpperCase();
+    document.getElementById('svgOk').innerHTML = P.Badge.svg({
+      code: code.toUpperCase(),
+      titre: registre ? registre.titre : 'Formation vérifiée',
+      proprietaire: registre ? registre.proprietaire : ''
+    });
+    document.getElementById('metaOk').innerHTML =
+      (registre && registre.date ? 'Badge enregistré le ' + P.Common.formatDate(registre.date) + '<br>' : '') +
+      'Vérification effectuée le ' + new Date().toLocaleDateString('fr-FR') + ' — checksum valide.';
+  }
+
+  document.getElementById('formVerif').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var code = document.getElementById('inputCode').value.trim();
+    document.getElementById('verifErr').style.display = code ? 'none' : 'block';
+    if (code) verifier(code);
+  });
+
+  var codeParam = lireParam('code');
+  if (codeParam) {
+    document.getElementById('inputCode').value = codeParam;
+    verifier(codeParam);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fonctionnalités — PreuveIA</title>
+<meta name="description" content="Analyse multi-signaux, rapport PDF automatique, badge à code unique, vérification publique : toutes les fonctionnalités de PreuveIA pour certifier l'authenticité de vos formations IA.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fonctionnalités — PreuveIA">
+<meta property="og:description" content="Analyse multi-signaux, rapport PDF automatique, badge vérifiable. Toutes les fonctionnalités de PreuveIA.">
+<meta property="og:url" content="https://preuveia.fr/fonctionnalites.html">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://preuveia.fr/fonctionnalites.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "PreuveIA — Certification d'authenticité",
+  "serviceType": "Certification d'authenticité pour formations IA",
+  "provider": {"@type":"Organization","name":"PreuveIA","url":"https://preuveia.fr"},
+  "areaServed": "FR",
+  "description": "Analyse de contenus de formation (heuristique stylistique + API de détection IA), rapport PDF et badge vérifiable à code unique."
+}
+</script>
+</head>
+<body>
+<div class="demo-banner">Mode démonstration locale — analyses simulées côté client, paiement Stripe en mode test (aucun débit réel).</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="comment-ca-marche.html">Comment ça marche</a>
+      <a href="verification.html">Vérifier un badge</a>
+      <a class="btn small ghost" href="dashboard.html">Espace membre</a>
+      <a class="btn small accent" href="scan.html">Scanner un contenu</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-mini">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Fonctionnalités</div>
+    <h1>Tout ce qu'il faut pour transformer votre contenu en preuve</h1>
+    <p class="sub">De l'analyse au badge vérifiable, chaque brique est pensée pour être montrée à un acheteur sceptique.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">La méthode de score</span>
+    <h2 class="sec">Comment PreuveIA calcule votre score /100</h2>
+    <p class="lead-block">Le score combine 4 indicateurs stylistiques locaux, croisés en production avec des API de détection IA. Chaque indicateur est documenté dans le rapport PDF.</p>
+    <div class="feats">
+      <div class="feat"><div class="ico">📊</div><h3>Variété des phrases</h3><p>Un humain alterne phrases courtes et longues, hésite, ponctue. Un texte généré est souvent d'une régularité mécanique. Mesure : écart-type des longueurs de phrases.</p></div>
+      <div class="feat"><div class="ico">📚</div><h3>Richesse du vocabulaire</h3><p>Ratio de mots uniques sur les mots de contenu, hors mots-outils. Les textes générés tournent en boucle sur un vocabulaire restreint.</p></div>
+      <div class="feat"><div class="ico">🚩</div><h3>Absence de marqueurs IA</h3><p>Plus de 40 formules typiques de génération automatique en français (« en conclusion », « dans le monde d'aujourd'hui », « il est essentiel de »…) sont comptées.</p></div>
+      <div class="feat"><div class="ico">🔁</div><h3>Peu de répétitions</h3><p>Fréquence des mots de contenu répétés au-delà de l'usage naturel. La répétition est la signature la plus fiable de la génération automatique.</p></div>
+      <div class="feat"><div class="ico">🗣️</div><h3>Vivacité (bonus)</h3><p>Questions rhétoriques, exclamations, adresse directe au lecteur : des marqueurs de voix personnelle qui augmentent le score.</p></div>
+      <div class="feat"><div class="ico">🤖</div><h3>API de détection (production)</h3><p>En production, le score local (60 %) est croisé avec des API de détection IA (40 %) : GPTZero, Copyleaks ou classifieur maison, via api.preuveia.fr.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="wrap">
+    <span class="kicker">Comparatif</span>
+    <h2 class="sec center">Ce qui change face à un acheteur méfiant</h2>
+    <p class="lead-block">Les « preuves » classiques ne résistent pas à un prospect qui sait ce que l'IA sait faire.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th></th><th>Capture d'avis</th><th>« Garantie qualité »</th><th>Badge PreuveIA</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Vérifiable par l'acheteur</b></td><td class="muted">Non — image statique</td><td class="muted">Non — promesse</td><td class="ok"><b>Oui, en 1 clic</b></td></tr>
+          <tr><td><b>Résiste à la copie</b></td><td class="muted">Non</td><td class="muted">—</td><td class="ok"><b>Checksum anti-fraude</b></td></tr>
+          <tr><td><b>Porte une date</b></td><td class="muted">Non</td><td class="muted">Non</td><td class="ok"><b>Oui, daté</b></td></tr>
+          <tr><td><b>Document téléchargeable</b></td><td class="muted">Non</td><td class="muted">Non</td><td class="ok"><b>Rapport PDF</b></td></tr>
+          <tr><td><b>Fabricable par une IA</b></td><td class="muted">Oui, en 2 min</td><td class="muted">Oui</td><td class="ok"><b>Non — code vérifié</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note-demo" style="margin-top:18px">Comparatif de démonstration — les capacités décrites correspondent au fonctionnement prévu en production.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Intégrations</span>
+    <h2 class="sec center">Le badge s'affiche partout où vous vendez</h2>
+    <p class="lead-block">Un snippet HTML/SVG autonome, sans JavaScript obligatoire côté affichage.</p>
+    <div class="feats">
+      <div class="feat"><div class="ico">🎓</div><h3>Plateformes de cours</h3><p>Teachable, Gumroad, Udemy (description), Podia, Thinkific : collez le snippet dans la page de vente.</p></div>
+      <div class="feat"><div class="ico">🌍</div><h3>Sites web</h3><p>WordPress (bloc HTML), Webflow, Notion (embed), ou n'importe quelle page statique.</p></div>
+      <div class="feat"><div class="ico">🧩</div><h3>Widget autonome</h3><p>Une image SVG + un lien de vérification : fonctionne même sans JavaScript. Le widget enrichi (JS) ajoute la date de dernière vérification.</p></div>
+    </div>
+    <p class="center" style="margin-top:36px"><a class="btn accent" href="badge.html">Essayer le générateur de badge</a></p>
+  </div>
+</section>
+
+<section class="dark cta">
+  <div class="wrap">
+    <h2>Testez le scan sur votre propre contenu</h2>
+    <p class="sub">Collez une transcription, recevez le score et le rapport PDF en 30 secondes.</p>
+    <div class="hero-cta"><a class="btn green" href="scan.html">Scanner un contenu gratuitement</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">✓</span>Preuve<em style="color:#7ea2ff">IA</em></div>
+        <p class="muted" style="max-width:280px">La certification d'authenticité pour créateurs de formations IA.</p>
+      </div>
+      <div>
+        <h4>Produit</h4>
+        <a href="fonctionnalites.html">Fonctionnalités</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="scan.html">Scanner un contenu</a>
+        <a href="badge.html">Générer un badge</a>
+        <a href="verification.html">Vérifier un badge</a>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <a href="comment-ca-marche.html">Comment ça marche</a>
+        <a href="blog/pourquoi-les-acheteurs-se-mefient-de-votre-formation.html">Pourquoi les acheteurs se méfient</a>
+        <a href="blog/ia-ou-humain-comment-prouver-votre-authenticite.html">IA ou humain : prouver votre authenticité</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cgu.html">Conditions générales</a>
+        <a href="dashboard.html">Espace membre</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+  </div>
+</footer>
+</body>
+</html>

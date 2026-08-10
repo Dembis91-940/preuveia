@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Créer mon compte — PreuveIA (essai 7 jours gratuit)</title>
+<meta name="description" content="Créez votre compte PreuveIA : essai gratuit 7 jours sans carte, garantie 14 jours, résiliable en un clic. Formules dès 29 €/mois.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Créer mon compte — PreuveIA">
+<meta property="og:description" content="Essai gratuit 7 jours sans carte. Badge « Authenticité vérifiée » dès 29 €/mois.">
+<meta property="og:url" content="https://preuveia.fr/inscription.html">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://preuveia.fr/inscription.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/tarifs.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/inscription.js"></script>
+</head>
+<body>
+<div class="demo-banner">Mode démonstration locale — paiement Stripe en MODE TEST : aucune carte n'est débitée, aucune donnée bancaire n'est envoyée.</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="fonctionnalites.html">Fonctionnalités</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="verification.html">Vérifier un badge</a>
+      <a class="btn small ghost" href="dashboard.html">Espace membre</a>
+      <a class="btn small accent" href="scan.html">Scanner un contenu</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-mini">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Inscription</div>
+    <h1>Créez votre compte — 7 jours gratuits</h1>
+    <p class="sub">Sans carte pendant l'essai · Garantie 14 jours satisfait ou remboursé · Résiliable en un clic.</p>
+  </div>
+</section>
+
+<section style="padding-top:24px">
+  <div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
+    <div class="form-card" style="max-width:none">
+      <h1 style="font-size:22px">Vos informations</h1>
+      <div class="field">
+        <label for="iNom">Nom / nom d'affichage</label>
+        <input type="text" id="iNom" placeholder="Ex. : Claire Fontaine">
+        <div class="err" id="errNom">Nom requis (2 caractères minimum).</div>
+      </div>
+      <div class="field">
+        <label for="iEmail">Email professionnel</label>
+        <input type="email" id="iEmail" placeholder="vous@domaine.fr">
+        <div class="err" id="errEmail">Adresse email invalide.</div>
+      </div>
+      <div class="field">
+        <label for="iMdp">Mot de passe</label>
+        <input type="password" id="iMdp" placeholder="8 caractères minimum">
+        <div class="hint">Utilisez un mot de passe unique à ce service.</div>
+        <div class="err" id="errMdp">Mot de passe : 8 caractères minimum.</div>
+      </div>
+
+      <h2 style="font-size:16px;margin:22px 0 12px">Votre formule</h2>
+      <div class="field" id="planBox">
+        <label style="display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;margin-bottom:8px">
+          <input type="radio" name="plan" value="authenticite"> <span><b>Authenticité — 29 €/mois</b> <span class="muted" style="font-weight:400">· 10 scans + badge</span></span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;border:2px solid var(--accent);border-radius:10px;padding:12px 14px;cursor:pointer;margin-bottom:8px;background:var(--accent-soft)">
+          <input type="radio" name="plan" value="createur" checked> <span><b>Créateur — 49 €/mois</b> <span class="muted" style="font-weight:400">· scans illimités + rapport personnalisé + support</span></span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer">
+          <input type="radio" name="plan" value="academie"> <span><b>Académie — 79 €/mois</b> <span class="muted" style="font-weight:400">· 5 sièges + API</span></span>
+        </label>
+        <div class="err" id="errPlan">Choisissez une formule.</div>
+      </div>
+
+      <h2 style="font-size:16px;margin:22px 0 12px">Paiement <span class="stripe-badge">🔒 Stripe</span></h2>
+      <div class="stripe-note">🧪 <b>Mode test</b> : aucun débit réel. Utilisez la carte de test 4242 4242 4242 4242, toute date future, CVC 123. En production, le paiement est traité par Stripe avec chiffrement.</div>
+      <div class="field">
+        <label for="iNum">Numéro de carte</label>
+        <input type="text" id="iNum" placeholder="4242 4242 4242 4242" inputmode="numeric">
+        <div class="err" id="errNum">Numéro de carte invalide (mode test : 4242 4242 4242 4242).</div>
+      </div>
+      <div class="card-row">
+        <div class="field">
+          <label for="iExp">Expiration</label>
+          <input type="text" id="iExp" placeholder="MM/AA" inputmode="numeric">
+          <div class="err" id="errExp">Date invalide (MM/AA).</div>
+        </div>
+        <div class="field">
+          <label for="iCvc">CVC</label>
+          <input type="text" id="iCvc" placeholder="123" inputmode="numeric">
+          <div class="err" id="errCvc">CVC invalide.</div>
+        </div>
+        <div class="field" style="display:flex;align-items:flex-end">
+          <div style="width:100%;border:1.5px dashed var(--line);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--muted);text-align:center">💳 Test<br><b style="color:var(--ink)">0,00 € débité</b></div>
+        </div>
+      </div>
+
+      <button class="btn accent" id="btnPayer" style="width:100%">Créer mon compte — essai 7 jours gratuits</button>
+      <p class="form-note" id="notePaiement">En cliquant, vous acceptez les <a href="cgu.html">CGU</a> et la <a href="mentions-legales.html">politique de confidentialité</a>. Aucun débit pendant l'essai.</p>
+    </div>
+
+    <div>
+      <div class="dash-card" style="margin-bottom:20px">
+        <h3 style="font-size:16px;margin-bottom:10px">Ce que vous obtenez immédiatement</h3>
+        <ul class="report-list">
+          <li>Accès au scanner et au générateur de badge</li>
+          <li>Votre badge « Authenticité vérifiée » prêt à afficher</li>
+          <li>Rapports PDF illimités pendant l'essai (plan Créateur)</li>
+          <li>Email de bienvenue avec vos accès</li>
+          <li>Support par email pendant l'essai</li>
+        </ul>
+      </div>
+      <div class="dash-card">
+        <h3 style="font-size:16px;margin-bottom:10px">Sans engagement</h3>
+        <ul class="report-list">
+          <li>Essai <b>7 jours</b>, sans carte</li>
+          <li>Garantie <b>14 jours</b> satisfait ou remboursé</li>
+          <li>Résiliation en un clic depuis l'espace membre</li>
+          <li>Vos badges restent vérifiables 12 mois après résiliation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">✓</span>Preuve<em style="color:#7ea2ff">IA</em></div>
+        <p class="muted" style="max-width:280px">La certification d'authenticité pour créateurs de formations IA.</p>
+      </div>
+      <div>
+        <h4>Produit</h4>
+        <a href="fonctionnalites.html">Fonctionnalités</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="scan.html">Scanner un contenu</a>
+        <a href="badge.html">Générer un badge</a>
+        <a href="verification.html">Vérifier un badge</a>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <a href="comment-ca-marche.html">Comment ça marche</a>
+        <a href="blog/pourquoi-les-acheteurs-se-mefient-de-votre-formation.html">Pourquoi les acheteurs se méfient</a>
+        <a href="blog/ia-ou-humain-comment-prouver-votre-authenticite.html">IA ou humain : prouver votre authenticité</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cgu.html">Conditions générales</a>
+        <a href="dashboard.html">Espace membre</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var P = window.PreuveIA;
+
+  // Déjà connecté ? → espace membre
+  if (P.Common.getCompte()) {
+    location.href = 'dashboard.html';
+    return;
+  }
+
+  function lireParam(name) {
+    var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+  var planInit = lireParam('plan');
+  if (planInit && ['authenticite', 'createur', 'academie'].indexOf(planInit) !== -1) {
+    var radios = document.getElementsByName('plan');
+    for (var r = 0; r < radios.length; r++) radios[r].checked = radios[r].value === planInit;
+  }
+
+  document.getElementById('iNum').addEventListener('input', function (e) {
+    e.target.value = P.Common.formatCarte(e.target.value);
+  });
+  document.getElementById('iExp').addEventListener('input', function (e) {
+    e.target.value = P.Common.formatExp(e.target.value);
+  });
+  document.getElementById('iCvc').addEventListener('input', function (e) {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+  });
+
+  document.getElementById('btnPayer').addEventListener('click', function () {
+    var plan = (document.querySelector('input[name="plan"]:checked') || {}).value || '';
+    var donnees = {
+      nom: document.getElementById('iNom').value,
+      email: document.getElementById('iEmail').value,
+      mdp: document.getElementById('iMdp').value,
+      plan: plan,
+      numero: document.getElementById('iNum').value,
+      exp: document.getElementById('iExp').value,
+      cvc: document.getElementById('iCvc').value
+    };
+    var v = P.Inscription.valider(donnees);
+    ['nom', 'email', 'mdp', 'plan', 'numero', 'exp', 'cvc'].forEach(function (champ) {
+      var el = document.getElementById('i' + champ.charAt(0).toUpperCase() + champ.slice(1));
+      var err = document.getElementById('err' + champ.charAt(0).toUpperCase() + champ.slice(1));
+      if (!el || !err) return;
+      el.closest('.field').classList.toggle('invalid', !!v.erreurs[champ]);
+    });
+    if (!v.ok) {
+      document.getElementById('notePaiement').textContent = 'Veuillez corriger les champs signalés.';
+      return;
+    }
+    var btn = document.getElementById('btnPayer');
+    btn.disabled = true;
+    btn.textContent = 'Traitement du paiement (mode test)…';
+    P.Inscription.simulerPaiement(donnees).then(function (res) {
+      var compte = {
+        nom: donnees.nom.trim(),
+        email: donnees.email.trim(),
+        plan: donnees.plan,
+        depuis: new Date().toISOString(),
+        essaiFin: new Date(Date.now() + P.TARIFS.ESSAI_JOURS * 24 * 3600 * 1000).toISOString(),
+        statut: 'actif',
+        transaction: res.transaction,
+        paiement: 'test-simule'
+      };
+      P.Common.setCompte(compte);
+      location.href = 'dashboard.html?bienvenue=1';
+    });
+  });
+})();
+</script>
+</body>
+</html>

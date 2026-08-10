@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenue chez PreuveIA — {{prenom}}</title>
+</head>
+<body style="margin:0;padding:0;background:#f2f0ea;font-family:Arial,Helvetica,sans-serif;color:#111827;">
+<!-- SUJET : Bienvenue chez PreuveIA, {{prenom}} — votre badge vous attend -->
+<div style="max-width:600px;margin:0 auto;background:#ffffff;border:1px solid #e5e1d8;">
+  <div style="background:#1649c4;padding:28px 32px;color:#ffffff;">
+    <div style="font-size:22px;font-weight:bold;">Preuve<span style="color:#9db8ff;">IA</span></div>
+    <div style="font-size:14px;opacity:.85;margin-top:4px;">Certification d'authenticité pour créateurs de formations</div>
+  </div>
+  <div style="padding:32px;">
+    <h1 style="font-size:22px;margin:0 0 14px;color:#111827;">Bienvenue, {{prenom}} ! 👋</h1>
+    <p style="font-size:15px;line-height:1.6;margin:0 0 16px;color:#374151;">Votre compte PreuveIA est actif. Votre essai gratuit de <b>7 jours</b> a commencé — sans carte bancaire, sans engagement.</p>
+    <p style="font-size:15px;line-height:1.6;margin:0 0 16px;color:#374151;">Voici les 3 choses à faire cette semaine :</p>
+    <ol style="font-size:15px;line-height:1.7;color:#374151;margin:0 0 22px;padding-left:22px;">
+      <li><b>Scannez votre premier contenu</b> : collez une transcription, recevez votre score et votre rapport PDF en 30 secondes.</li>
+      <li><b>Générez votre badge</b> « Authenticité vérifiée » et affichez-le sur votre page de vente.</li>
+      <li><b>Vérifiez-le vous-même</b> avec le code unique — c'est exactement ce que feront vos acheteurs.</li>
+    </ol>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 22px;">
+      <tr>
+        <td style="background:#1649c4;border-radius:999px;padding:13px 26px;">
+          <a href="{{lien_scan}}" style="color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;">Scanner mon premier contenu →</a>
+        </td>
+      </tr>
+    </table>
+    <p style="font-size:14px;line-height:1.6;margin:0 0 8px;color:#6b7280;">Votre formule : <b>{{plan_nom}}</b> ({{plan_prix}} €/mois après l'essai). Garantie satisfait ou remboursé 14 jours.</p>
+    <p style="font-size:14px;line-height:1.6;margin:0 0 22px;color:#6b7280;">Une question ? Répondez simplement à cet email — un humain vous répond sous 24 h.</p>
+  </div>
+  <div style="background:#f2f0ea;padding:20px 32px;font-size:12px;color:#6b7280;line-height:1.6;">
+    PreuveIA — certification d'authenticité pour créateurs de formations IA.<br>
+    Vous recevez cet email parce que vous avez créé un compte sur preuveia.fr. Gérer mes préférences : {{lien_preferences}} · Me désabonner : {{lien_desabonnement}}
+  </div>
+</div>
+</body>
+</html>

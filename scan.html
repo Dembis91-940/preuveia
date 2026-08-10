@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scanner un contenu — PreuveIA</title>
+<meta name="description" content="Collez votre transcription ou déposez un fichier : PreuveIA calcule le score d'authenticité de votre contenu et génère un rapport PDF + un badge vérifiable en 30 secondes.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Scanner un contenu — PreuveIA">
+<meta property="og:description" content="Analyse d'authenticité en 30 secondes : score /100, rapport PDF, badge vérifiable.">
+<meta property="og:url" content="https://preuveia.fr/scan.html">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://preuveia.fr/scan.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/tarifs.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/badge.js"></script>
+<script src="assets/js/exemples.js"></script>
+<script src="assets/js/scan.js"></script>
+<script src="assets/js/pdf.js"></script>
+</head>
+<body>
+<div class="demo-banner">Mode démonstration locale — analyses simulées côté client, paiement Stripe en mode test (aucun débit réel).</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="fonctionnalites.html">Fonctionnalités</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="verification.html">Vérifier un badge</a>
+      <a class="btn small ghost" href="dashboard.html">Espace membre</a>
+      <a class="btn small accent" href="scan.html">Scanner un contenu</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-mini">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Scanner</div>
+    <h1>Analysez l'authenticité de votre contenu</h1>
+    <p class="sub">Collez une transcription ou déposez un fichier (.txt, .md, .srt, .vtt, .csv). Minimum 200 caractères. Le rapport PDF et le badge sont générés automatiquement.</p>
+  </div>
+</section>
+
+<section style="padding-top:24px">
+  <div class="wrap narrow">
+    <div class="form-card" style="max-width:720px">
+      <div class="field">
+        <label for="titre">Titre du contenu analysé</label>
+        <input type="text" id="titre" placeholder="Ex. : Créer une formation qui se vend — Module 1" value="Ma formation — Extrait">
+      </div>
+      <div class="exemples">
+        <button type="button" class="btn small ghost" id="btnExHumain">Charger un exemple humain</button>
+        <button type="button" class="btn small ghost" id="btnExIA">Charger un exemple généré par IA</button>
+      </div>
+      <div class="field">
+        <label for="texte">Contenu à analyser</label>
+        <textarea id="texte" placeholder="Collez ici votre transcription, script ou chapitres de formation…"></textarea>
+        <div class="hint" id="compteur">0 caractère — minimum 200</div>
+      </div>
+      <div class="drop" id="dropzone">
+        <div class="ico">📄</div>
+        <p><b>Ou déposez un fichier ici</b> (.txt, .md, .srt, .vtt, .csv)</p>
+      </div>
+      <div class="field" style="margin-top:18px">
+        <label style="display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer"><input type="checkbox" id="optApi" checked> Croiser avec l'API de détection IA <span class="muted" style="font-weight:400">(simulation — placeholder api.preuveia.fr)</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer;margin-top:8px"><input type="checkbox" id="optPanne"> Simuler une panne de l'API (test du fallback local)</label>
+      </div>
+      <button class="btn accent" id="btnAnalyser" style="width:100%">Analyser le contenu</button>
+      <p class="form-note">Analyse exécutée localement dans votre navigateur — aucun contenu n'est envoyé sur un serveur en mode démo.</p>
+    </div>
+
+    <div id="erreur" style="display:none;margin-top:24px" class="form-card" role="alert">
+      <p style="color:var(--danger);font-weight:600" id="erreurTexte"></p>
+    </div>
+
+    <div id="resultats" class="results" style="display:none">
+      <div class="result-head">
+        <div class="ring" id="anneau" style="--p:0;width:140px;height:140px">
+          <div class="num" id="scoreNum">—<small>/100</small></div>
+        </div>
+        <div style="flex:1;min-width:240px">
+          <span class="verdict-pill" id="verdictPill">—</span>
+          <h3 style="margin:10px 0 4px" id="resTitre"></h3>
+          <p class="muted" style="font-size:14px" id="resMeta"></p>
+          <p class="muted" style="font-size:13px;margin-top:6px">Code du badge : <b id="resCode" style="font-family:ui-monospace,monospace;color:var(--accent)">—</b> — <a id="lienVerif" href="#">vérifier publiquement</a></p>
+        </div>
+      </div>
+      <div class="metrics">
+        <h3 style="font-size:16px;margin-bottom:16px">Détail des indicateurs</h3>
+        <div id="barres"></div>
+        <div id="detailsList" style="margin-top:6px;font-size:14.5px;color:var(--muted)"></div>
+        <div class="api-note" id="apiNote"></div>
+      </div>
+      <div class="actions">
+        <button class="btn green" id="btnPDF">📄 Télécharger le rapport PDF</button>
+        <a class="btn ghost" id="btnBadge" href="badge.html">🛡️ Créer mon badge vérifié</a>
+        <button class="btn ghost" id="btnSauver">💾 Enregistrer dans mon espace</button>
+      </div>
+      <p class="form-note" id="sauveNote"></p>
+    </div>
+  </div>
+</section>
+
+<section class="dark cta">
+  <div class="wrap">
+    <h2>Le résultat vous convainc ?</h2>
+    <p class="sub">Créez votre compte, affichez le badge sur votre page de vente, et laissez vos acheteurs vérifier.</p>
+    <div class="hero-cta"><a class="btn green" href="inscription.html?plan=createur">Essai gratuit 7 jours</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px"><span class="mark">✓</span>Preuve<em style="color:#7ea2ff">IA</em></div>
+        <p class="muted" style="max-width:280px">La certification d'authenticité pour créateurs de formations IA.</p>
+      </div>
+      <div>
+        <h4>Produit</h4>
+        <a href="fonctionnalites.html">Fonctionnalités</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="scan.html">Scanner un contenu</a>
+        <a href="badge.html">Générer un badge</a>
+        <a href="verification.html">Vérifier un badge</a>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <a href="comment-ca-marche.html">Comment ça marche</a>
+        <a href="blog/pourquoi-les-acheteurs-se-mefient-de-votre-formation.html">Pourquoi les acheteurs se méfient</a>
+        <a href="blog/ia-ou-humain-comment-prouver-votre-authenticite.html">IA ou humain : prouver votre authenticité</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="cgu.html">Conditions générales</a>
+        <a href="dashboard.html">Espace membre</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var P = window.PreuveIA;
+  var texte = document.getElementById('texte');
+  var compteur = document.getElementById('compteur');
+  var btnAnalyser = document.getElementById('btnAnalyser');
+  var dropzone = document.getElementById('dropzone');
+  var dernierScan = null;
+
+  function majCompteur() {
+    var n = texte.value.trim().length;
+    compteur.textContent = n + ' caractère' + (n > 1 ? 's' : '') + ' — minimum ' + P.Scan.MIN_CHARS;
+    compteur.style.color = n >= P.Scan.MIN_CHARS ? 'var(--accent-2)' : 'var(--muted)';
+  }
+  texte.addEventListener('input', majCompteur);
+  majCompteur();
+
+  document.getElementById('btnExHumain').addEventListener('click', function () {
+    texte.value = P.EXEMPLES.humain; majCompteur();
+  });
+  document.getElementById('btnExIA').addEventListener('click', function () {
+    texte.value = P.EXEMPLES.ia; majCompteur();
+  });
+
+  dropzone.addEventListener('click', function () {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.txt,.md,.srt,.vtt,.csv,text/plain';
+    input.onchange = function () { if (input.files[0]) lireFichier(input.files[0]); };
+    input.click();
+  });
+  ['dragover', 'dragenter'].forEach(function (ev) {
+    dropzone.addEventListener(ev, function (e) { e.preventDefault(); dropzone.classList.add('over'); });
+  });
+  ['dragleave', 'drop'].forEach(function (ev) {
+    dropzone.addEventListener(ev, function (e) { e.preventDefault(); dropzone.classList.remove('over'); });
+  });
+  dropzone.addEventListener('drop', function (e) {
+    if (e.dataTransfer.files[0]) lireFichier(e.dataTransfer.files[0]);
+  });
+  function lireFichier(f) {
+    var reader = new FileReader();
+    reader.onload = function () { texte.value = String(reader.result || ''); majCompteur(); };
+    reader.readAsText(f);
+  }
+
+  btnAnalyser.addEventListener('click', function () {
+    var contenu = texte.value.trim();
+    var errBox = document.getElementById('erreur');
+    var errTexte = document.getElementById('erreurTexte');
+    if (contenu.length < P.Scan.MIN_CHARS) {
+      errTexte.textContent = 'Texte trop court (' + contenu.length + ' caractères). Collez au moins ' + P.Scan.MIN_CHARS + ' caractères pour une analyse fiable.';
+      errBox.style.display = 'block';
+      document.getElementById('resultats').style.display = 'none';
+      return;
+    }
+    errBox.style.display = 'none';
+    btnAnalyser.disabled = true;
+    btnAnalyser.textContent = 'Analyse en cours…';
+    var useApi = document.getElementById('optApi').checked;
+    var panne = document.getElementById('optPanne').checked;
+    P.Scan.analyser(contenu, { api: useApi, simulerPanne: panne }).then(function (res) {
+      dernierScan = res;
+      res.code = P.Badge.generateCode();
+      afficher(res);
+    }).catch(function (err) {
+      errTexte.textContent = err.message || 'Erreur inattendue.';
+      errBox.style.display = 'block';
+    }).finally(function () {
+      btnAnalyser.disabled = false;
+      btnAnalyser.textContent = 'Analyser le contenu';
+    });
+  });
+
+  function afficher(res) {
+    var anneau = document.getElementById('anneau');
+    anneau.style.setProperty('--p', res.score);
+    anneau.style.setProperty('--c', res.verdict.classe === 'green' ? 'var(--accent-2)' : res.verdict.classe === 'amber' ? 'var(--warn)' : 'var(--danger)');
+    document.getElementById('scoreNum').innerHTML = res.score + '<small>/100</small>';
+    var pill = document.getElementById('verdictPill');
+    pill.textContent = res.verdict.label;
+    pill.className = 'verdict-pill ' + res.verdict.classe;
+    document.getElementById('resTitre').textContent = document.getElementById('titre').value || 'Contenu sans titre';
+    document.getElementById('resMeta').textContent = 'Analyse du ' + new Date().toLocaleDateString('fr-FR') +
+      (res.api ? ' — croisée avec l\u2019API « ' + res.api.fournisseur + ' » (simulation)' : ' — analyse locale') +
+      (res.apiPanne ? ' — API en panne, fallback local utilisé' : '');
+    document.getElementById('resCode').textContent = res.code;
+    document.getElementById('lienVerif').href = P.Badge.verificationUrl(res.code, '');
+    var barres = document.getElementById('barres');
+    barres.innerHTML = '';
+    res.metriques.forEach(function (m) {
+      var bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.innerHTML = '<div class="row"><span>' + m.nom + '</span><b>' + m.valeur + '/100</b></div>' +
+        '<div class="track"><div class="fill ' + m.couleur + '" style="width:' + m.valeur + '%"></div></div>';
+      barres.appendChild(bar);
+    });
+    var dl = document.getElementById('detailsList');
+    dl.innerHTML = '';
+    res.details.forEach(function (d) {
+      var p = document.createElement('p');
+      p.style.margin = '6px 0';
+      p.textContent = '• ' + d;
+      dl.appendChild(p);
+    });
+    var note = document.getElementById('apiNote');
+    if (res.apiPanne) {
+      note.textContent = '⚠️ API de détection indisponible (simulation) : le résultat affiché provient du fallback local. En production, un tel incident serait notifié et l\u2019analyse relancée automatiquement.';
+      note.className = 'api-note warn';
+    } else if (res.api) {
+      note.textContent = '🤖 API de détection : « ' + res.api.fournisseur + ' » (mode simulation, confiance ' + (res.api.confiance * 100).toFixed(0) + ' %). En production : appel à api.preuveia.fr/v1/detect — score final = 60 % local + 40 % API.';
+      note.className = 'api-note';
+    } else {
+      note.textContent = 'ℹ️ Analyse locale uniquement (heuristique stylistique). Cochez l\u2019option API pour simuler le croisement avec un détecteur externe.';
+      note.className = 'api-note';
+    }
+    document.getElementById('btnBadge').href = 'badge.html?code=' + encodeURIComponent(res.code) + '&titre=' + encodeURIComponent(document.getElementById('titre').value);
+    document.getElementById('sauveNote').textContent = '';
+    document.getElementById('resultats').style.display = 'block';
+    document.getElementById('resultats').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('btnPDF').addEventListener('click', function () {
+    if (!dernierScan) return;
+    var titre = document.getElementById('titre').value || 'Contenu sans titre';
+    var r = P.Pdf.buildRapport({
+      titre: titre,
+      auteur: 'Créateur PreuveIA',
+      score: dernierScan.score,
+      verdict: dernierScan.verdict.label,
+      verdictClasse: dernierScan.verdict.classe,
+      metriques: dernierScan.metriques,
+      code: dernierScan.code,
+      urlVerification: location.href.split('/').slice(0, -1).join('/') + '/verification.html?code=' + dernierScan.code,
+      dateLabel: new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
+    });
+    var blob = new Blob([r.bytes], { type: 'application/pdf' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'preuveia-rapport-' + dernierScan.code + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 400);
+  });
+
+  document.getElementById('btnSauver').addEventListener('click', function () {
+    if (!dernierScan) return;
+    var compte = P.Common.getCompte();
+    if (!compte) {
+      document.getElementById('sauveNote').textContent = 'Connectez-vous d\u2019abord : créez votre compte (essai gratuit 7 jours) pour retrouver vos scans dans votre espace.';
+      return;
+    }
+    var quota = P.Common.quotaRestant(compte);
+    if (quota !== null && quota <= 0) {
+      document.getElementById('sauveNote').textContent = 'Quota mensuel atteint (plan ' + compte.plan + ' : 10 scans/mois). Passez au plan Créateur pour des scans illimités.';
+      return;
+    }
+    P.Common.addScan({
+      titre: document.getElementById('titre').value || 'Contenu sans titre',
+      score: dernierScan.score,
+      verdict: dernierScan.verdict.label,
+      classe: dernierScan.verdict.classe,
+      code: dernierScan.code,
+      metriques: dernierScan.metriques
+    });
+    document.getElementById('sauveNote').textContent = '✓ Scan enregistré dans votre espace membre (quota restant : ' + (quota === null ? 'illimité' : quota - 1) + ').';
+  });
+})();
+</script>
+</body>
+</html>
