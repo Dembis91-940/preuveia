@@ -16,6 +16,7 @@
   if (cfg.emailjs && !window.emailjs) {
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    s.onload = function () { try { emailjs.init({ publicKey: cfg.emailjs.publicKey }); } catch (err) {} };
     document.head.appendChild(s);
   }
 
