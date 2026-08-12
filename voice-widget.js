@@ -39,8 +39,13 @@
     var el = document.createElement('script');
     el.src = p + 'assets/vapi-bundle.js';
     el.onload = function () {
-      if (window.VapiSDK && window.VapiSDK.default) { cb(); }
-      else { status.textContent = 'Erreur de chargement vocal (SDK).'; }
+      var tries = 0;
+      var check = function () {
+        if (window.VapiSDK && window.VapiSDK.default) { cb(); }
+        else if (tries < 10) { tries++; setTimeout(check, 200); }
+        else { status.textContent = 'Erreur de chargement vocal (SDK).'; }
+      };
+      check();
     };
     el.onerror = function () { status.textContent = 'Erreur de chargement vocal.'; };
     document.head.appendChild(el);
