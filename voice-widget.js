@@ -32,14 +32,14 @@
   var busy = false;
 
   function loadSDK(cb) {
-    if (window.VapiSDK && window.VapiSDK.Vapi) { cb(); return; }
+    if (window.VapiSDK && window.VapiSDK.default) { cb(); return; }
     var s = location.pathname.split('/').filter(Boolean);
     var n = Math.max(0, s.length - 2), p = '';
     while (n--) { p += '../'; }
     var el = document.createElement('script');
     el.src = p + 'assets/vapi-bundle.js';
     el.onload = function () {
-      if (window.VapiSDK && window.VapiSDK.Vapi) { cb(); }
+      if (window.VapiSDK && window.VapiSDK.default) { cb(); }
       else { status.textContent = 'Erreur de chargement vocal (SDK).'; }
     };
     el.onerror = function () { status.textContent = 'Erreur de chargement vocal.'; };
@@ -66,7 +66,7 @@
     busy = true;
     loadSDK(function () {
       try {
-        vapi = new window.VapiSDK.Vapi(cfg.publicKey);
+        vapi = new window.VapiSDK.default(cfg.publicKey);
         vapi.on('call-start', function () { setActive(true); });
         vapi.on('call-end', function () { setActive(false); busy = false; });
         vapi.on('speech-update', function (m) {
