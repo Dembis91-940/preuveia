@@ -32,12 +32,18 @@
   var busy = false;
 
   function loadSDK(cb) {
-    if (window.Vapi) { cb(); return; }
-    var s = document.createElement('script');
-    s.src = 'https://unpkg.com/@vapi-ai/web@latest/dist/vapi-web.min.js';
-    s.onload = cb;
-    s.onerror = function () { status.textContent = 'Erreur de chargement vocal.'; };
-    document.head.appendChild(s);
+    if (window.VapiSDK && window.VapiSDK.Vapi) { cb(); return; }
+    var s = location.pathname.split('/').filter(Boolean);
+    var n = Math.max(0, s.length - 2), p = '';
+    while (n--) { p += '../'; }
+    var el = document.createElement('script');
+    el.src = p + 'assets/vapi-bundle.js';
+    el.onload = function () {
+      if (window.VapiSDK && window.VapiSDK.Vapi) { cb(); }
+      else { status.textContent = 'Erreur de chargement vocal (SDK).'; }
+    };
+    el.onerror = function () { status.textContent = 'Erreur de chargement vocal.'; };
+    document.head.appendChild(el);
   }
 
   function setActive(active) {
@@ -60,7 +66,7 @@
     busy = true;
     loadSDK(function () {
       try {
-        vapi = new Vapi(cfg.publicKey);
+        vapi = new window.VapiSDK.Vapi(cfg.publicKey);
         vapi.on('call-start', function () { setActive(true); });
         vapi.on('call-end', function () { setActive(false); busy = false; });
         vapi.on('speech-update', function (m) {
