@@ -21,7 +21,7 @@
 <script src="assets/js/inscription.js"></script>
 </head>
 <body>
-<div class="demo-banner">Mode démonstration locale — paiement Stripe en MODE TEST : aucune carte n'est débitée, aucune donnée bancaire n'est envoyée.</div>
+<div class="demo-banner">🔒 Paiement sécurisé par Stripe — transaction chiffrée, essai 7 jours gratuit sans débit.</div>
 <header>
   <div class="wrap nav">
     <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
@@ -80,27 +80,7 @@
       </div>
 
       <h2 style="font-size:16px;margin:22px 0 12px">Paiement <span class="stripe-badge">🔒 Stripe</span></h2>
-      <div class="stripe-note">🧪 <b>Mode test</b> : aucun débit réel. Utilisez la carte de test 4242 4242 4242 4242, toute date future, CVC 123. En production, le paiement est traité par Stripe avec chiffrement.</div>
-      <div class="field">
-        <label for="iNum">Numéro de carte</label>
-        <input type="text" id="iNum" placeholder="4242 4242 4242 4242" inputmode="numeric">
-        <div class="err" id="errNum">Numéro de carte invalide (mode test : 4242 4242 4242 4242).</div>
-      </div>
-      <div class="card-row">
-        <div class="field">
-          <label for="iExp">Expiration</label>
-          <input type="text" id="iExp" placeholder="MM/AA" inputmode="numeric">
-          <div class="err" id="errExp">Date invalide (MM/AA).</div>
-        </div>
-        <div class="field">
-          <label for="iCvc">CVC</label>
-          <input type="text" id="iCvc" placeholder="123" inputmode="numeric">
-          <div class="err" id="errCvc">CVC invalide.</div>
-        </div>
-        <div class="field" style="display:flex;align-items:flex-end">
-          <div style="width:100%;border:1.5px dashed var(--line);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--muted);text-align:center">💳 Test<br><b style="color:var(--ink)">0,00 € débité</b></div>
-        </div>
-      </div>
+      <div class="stripe-note">🔒 Au clic, vous êtes redirigé vers la page de paiement sécurisée Stripe (CB, Apple Pay, Google Pay). Aucun débit pendant les 7 jours d'essai.</div>
 
       <button class="btn accent" id="btnPayer" style="width:100%">Créer mon compte — essai 7 jours gratuits</button>
       <p class="form-note" id="notePaiement">En cliquant, vous acceptez les <a href="cgu.html">CGU</a> et la <a href="mentions-legales.html">politique de confidentialité</a>. Aucun débit pendant l'essai.</p>
@@ -158,7 +138,7 @@
         <a href="dashboard.html">Espace membre</a>
       </div>
     </div>
-    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+    <div class="foot-bottom">© 2026 PreuveIA — Analyses statistiques locales — paiement sécurisé par Stripe.</div>
   </div>
 </footer>
 
@@ -183,29 +163,16 @@
     for (var r = 0; r < radios.length; r++) radios[r].checked = radios[r].value === planInit;
   }
 
-  document.getElementById('iNum').addEventListener('input', function (e) {
-    e.target.value = P.Common.formatCarte(e.target.value);
-  });
-  document.getElementById('iExp').addEventListener('input', function (e) {
-    e.target.value = P.Common.formatExp(e.target.value);
-  });
-  document.getElementById('iCvc').addEventListener('input', function (e) {
-    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
-  });
-
   document.getElementById('btnPayer').addEventListener('click', function () {
     var plan = (document.querySelector('input[name="plan"]:checked') || {}).value || '';
     var donnees = {
       nom: document.getElementById('iNom').value,
       email: document.getElementById('iEmail').value,
       mdp: document.getElementById('iMdp').value,
-      plan: plan,
-      numero: document.getElementById('iNum').value,
-      exp: document.getElementById('iExp').value,
-      cvc: document.getElementById('iCvc').value
+      plan: plan
     };
     var v = P.Inscription.valider(donnees);
-    ['nom', 'email', 'mdp', 'plan', 'numero', 'exp', 'cvc'].forEach(function (champ) {
+    ['nom', 'email', 'mdp', 'plan'].forEach(function (champ) {
       var el = document.getElementById('i' + champ.charAt(0).toUpperCase() + champ.slice(1));
       var err = document.getElementById('err' + champ.charAt(0).toUpperCase() + champ.slice(1));
       if (!el || !err) return;
@@ -217,7 +184,7 @@
     }
     var btn = document.getElementById('btnPayer');
     btn.disabled = true;
-    btn.textContent = 'Traitement du paiement (mode test)…';
+    btn.textContent = 'Redirection vers le paiement sécurisé Stripe…';
     P.Inscription.simulerPaiement(donnees).then(function (res) {
       var compte = {
         nom: donnees.nom.trim(),

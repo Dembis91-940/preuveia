@@ -236,7 +236,8 @@ section('6. Moteur de scan');
 
   const avecApi = await S.analyser(E.humain, { api: true });
   ok(avecApi.api && avecApi.api.fournisseur, 'API placeholder : fournisseur renseigné');
-  ok(avecApi.api.mode === 'simulation', 'API placeholder : mode simulation explicite');
+  ok(avecApi.api.mode === 'statistique', 'API réelle : mode statistique (perplexité + burstiness)');
+  ok(avecApi.api.fournisseur.indexOf('PreuveIA v2') !== -1, 'API réelle : moteur PreuveIA v2');
 
   const panne = await S.analyser(E.humain, { api: true, simulerPanne: true });
   eq(panne.apiPanne, true, 'panne API détectée');
@@ -285,20 +286,20 @@ function testPdf() {
 function testTunnel() {
   section("8. Tunnel d'inscription");
   const I = chargerModule('inscription.js');
-  ok(I.STRIPE_TEST_KEY.startsWith('pk_test_'), 'clé Stripe placeholder en mode test');
+  ok(I.STRIPE_URLS && I.STRIPE_URLS.createur.indexOf('buy.stripe.com') !== -1, 'liens de paiement Stripe configurés');
   const bon = {
     nom: 'Claire Fontaine', email: 'claire@domaine.fr', mdp: 'motdepasse123',
-    plan: 'createur', numero: '4242424242424242', exp: '12/28', cvc: '123'
+    plan: 'createur'
   };
-  ok(I.valider(bon).ok, 'formulaire valide accepté');
-  const mauvais = I.valider({ nom: 'C', email: 'pas-un-email', mdp: 'court', plan: '', numero: '1234', exp: '99/99', cvc: '1' });
+  ok(I.valider(bon).ok, 'formulaire valide accepté (sans carte : redirection Stripe)');
+  const mauvais = I.valider({ nom: 'C', email: 'pas-un-email', mdp: 'court', plan: '' });
   eq(mauvais.ok, false, 'formulaire invalide rejeté');
-  ['nom', 'email', 'mdp', 'plan', 'numero', 'exp', 'cvc'].forEach(ch => ok(mauvais.erreurs[ch], 'erreur champ ' + ch));
+  ['nom', 'email', 'mdp', 'plan'].forEach(ch => ok(mauvais.erreurs[ch], 'erreur champ ' + ch));
   ok(I.luhn('4242424242424242'), 'Luhn : carte de test valide');
   ok(!I.luhn('4242424242424241'), 'Luhn : carte invalide rejetée');
   return I.simulerPaiement(bon).then(res => {
-    eq(res.mode, 'test', 'paiement simulé en mode test');
-    ok(res.transaction.startsWith('pi_'), 'transaction simulée pi_…');
+    eq(res.mode, 'redirect', 'paiement = redirection Stripe sécurisée');
+    ok(res.stripe.indexOf('Stripe') !== -1, 'mention Stripe présente');
   });
 }
 

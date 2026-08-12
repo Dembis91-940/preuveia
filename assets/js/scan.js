@@ -145,29 +145,63 @@
   }
 
   /**
-   * Placeholder d'API de détection externe (GPTZero / Copyleaks / maison).
-   * En production : fetch('https://api.preuveia.fr/v1/detect', { method:'POST', body: texte }).
+   * Analyse croisée réelle (2e passe) : estimation de perplexité par n-grammes
+   * de caractères + burstiness (variance des longueurs de phrases).
+   * Aucun aléa : résultats déterministes, identiques pour un même texte.
    */
+  function scorePerplexite(texte) {
+    // Modèle trigramme de caractères : plus la suite est prévisible, plus
+    // le texte ressemble à une génération automatique (perplexité faible).
+    var s = texte.toLowerCase().replace(/[^a-zà-ÿ0-9\s]/g, '');
+    if (s.length < 40) return 50;
+    var trig = {};
+    var total = 0;
+    for (var i = 0; i < s.length - 3; i++) {
+      var key = s.substr(i, 3);
+      trig[key] = (trig[key] || 0) + 1;
+      total++;
+    }
+    // Entropie normalisée (0 = parfaitement prévisible, 1 = maximalement varié)
+    var entropie = 0;
+    Object.keys(trig).forEach(function (k) {
+      var p = trig[k] / total;
+      entropie -= p * Math.log(p);
+    });
+    var maxEnt = Math.log(Math.min(trig.length, 8000));
+    var normalise = maxEnt > 0 ? entropie / maxEnt : 0.5;
+    return Math.round(clamp(normalise * 100, 5, 97));
+  }
+
+  function scoreBurstiness(texte) {
+    // Variance relative des longueurs de phrases : les textes humains
+    // alternent phrases courtes et longues ; l'IA est plus uniforme.
+    var phrases = texte.split(/[.!?…]+/).map(function (p) { return p.trim().length; })
+      .filter(function (l) { return l > 3; });
+    if (phrases.length < 5) return 50;
+    var moy = phrases.reduce(function (a, b) { return a + b; }, 0) / phrases.length;
+    if (moy === 0) return 50;
+    var varian = phrases.reduce(function (a, l) { return a + (l - moy) * (l - moy); }, 0) / phrases.length;
+    var cv = Math.sqrt(varian) / moy; // coefficient de variation
+    return Math.round(clamp(cv * 160, 5, 97));
+  }
+
   function detecterViaAPI(texte, opts) {
     opts = opts || {};
     return new Promise(function (resolve, reject) {
-      setTimeout(function () {
-        if (opts.simulerPanne) {
-          reject(new Error('API de détection indisponible (simulation de panne)'));
-          return;
-        }
-        // Simulation crédible : une API externe combine modèles ; on dérive une confiance
-        // légèrement différente de l'heuristique locale pour la démo.
-        var local = analyserLocal(texte);
-        var jitter = Math.round((Math.random() - 0.5) * 14);
-        var confiance = clamp(local.score / 100 + jitter / 100, 0.05, 0.97);
-        resolve({
-          fournisseur: 'GPTZero (placeholder)',
-          mode: 'simulation',
-          confiance: Math.round(confiance * 1000) / 1000,
-          score: Math.round(confiance * 100)
-        });
-      }, opts.delai || 500);
+      if (opts.simulerPanne) {
+        reject(new Error('Analyse croisée indisponible'));
+        return;
+      }
+      var local = analyserLocal(texte);
+      var perp = scorePerplexite(texte);
+      var burst = scoreBurstiness(texte);
+      var score = Math.round(local.score * 0.6 + (perp * 0.5 + burst * 0.5) * 0.4);
+      resolve({
+        fournisseur: 'Moteur PreuveIA v2 (perplexité + burstiness)',
+        mode: 'statistique',
+        confiance: clamp(score / 100, 0.05, 0.97),
+        score: Math.round(clamp(score, 0, 100))
+      });
     });
   }
 
