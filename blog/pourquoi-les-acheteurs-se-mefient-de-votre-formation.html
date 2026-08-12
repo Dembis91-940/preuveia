@@ -140,5 +140,9 @@
 (function(){function u(){var s=location.pathname.split('/').filter(Boolean),n=Math.max(0,s.length-2),p='';while(n--){p+='../';}var c=document.createElement('script');c.src=p+'chatbot-config.js';c.onload=function(){var w=document.createElement('script');w.src=p+'chatbot.js';document.body.appendChild(w);};document.body.appendChild(c);}u();})();
 </script>
 
+
+<script>
+(function(){function u(){var s=location.pathname.split('/').filter(Boolean),n=Math.max(0,s.length-2),p='';while(n--){p+='../';}var c=document.createElement('script');c.src=p+'voice-config.js';c.onload=function(){var w=document.createElement('script');w.src=p+'voice-widget.js';document.body.appendChild(w);};document.body.appendChild(c);}u();})();
+</script>
 </body>
 </html>
