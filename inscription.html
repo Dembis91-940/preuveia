@@ -21,7 +21,7 @@
 <script src="assets/js/inscription.js"></script>
 </head>
 <body>
-<div class="demo-banner">🔒 Paiement sécurisé par Stripe — transaction chiffrée, essai 7 jours gratuit sans débit.</div>
+<div class="demo-banner">🔒 Commande confirmée par email — paiement par virement ou message privé. Essai 7 jours gratuit, sans carte.</div>
 <header>
   <div class="wrap nav">
     <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
@@ -58,12 +58,6 @@
         <input type="email" id="iEmail" placeholder="vous@domaine.fr">
         <div class="err" id="errEmail">Adresse email invalide.</div>
       </div>
-      <div class="field">
-        <label for="iMdp">Mot de passe</label>
-        <input type="password" id="iMdp" placeholder="8 caractères minimum">
-        <div class="hint">Utilisez un mot de passe unique à ce service.</div>
-        <div class="err" id="errMdp">Mot de passe : 8 caractères minimum.</div>
-      </div>
 
       <h2 style="font-size:16px;margin:22px 0 12px">Votre formule</h2>
       <div class="field" id="planBox">
@@ -79,11 +73,21 @@
         <div class="err" id="errPlan">Choisissez une formule.</div>
       </div>
 
-      <h2 style="font-size:16px;margin:22px 0 12px">Paiement <span class="stripe-badge">🔒 Stripe</span></h2>
-      <div class="stripe-note">🔒 Au clic, vous êtes redirigé vers la page de paiement sécurisée Stripe (CB, Apple Pay, Google Pay). Aucun débit pendant les 7 jours d'essai.</div>
+      <h2 style="font-size:16px;margin:22px 0 12px">Commande</h2>
+      <div class="stripe-note">🔒 Confirmation par email — paiement par virement ou message privé. Votre accès démarre dès réception du paiement ; essai 7 jours gratuit, sans carte.</div>
 
-      <button class="btn accent" id="btnPayer" style="width:100%">Créer mon compte — essai 7 jours gratuits</button>
-      <p class="form-note" id="notePaiement">En cliquant, vous acceptez les <a href="cgu.html">CGU</a> et la <a href="mentions-legales.html">politique de confidentialité</a>. Aucun débit pendant l'essai.</p>
+      <div class="err" id="errCommande" style="display:none"></div>
+
+      <button class="btn accent" id="btnPayer" style="width:100%">Commander →</button>
+      <p class="form-note" id="notePaiement">En cliquant, vous acceptez les <a href="cgu.html">CGU</a> et la <a href="mentions-legales.html">politique de confidentialité</a>. Confirmation par email — aucun débit pendant l'essai.</p>
+    </div>
+
+    <div class="form-card" id="commande-ok" style="display:none;max-width:none;text-align:center">
+      <div style="width:64px;height:64px;border-radius:50%;background:rgba(14,159,110,.14);color:#0e9f6e;font-size:30px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">✓</div>
+      <h1 style="font-size:22px">Commande envoyée !</h1>
+      <p style="color:var(--muted);margin-top:10px">Merci <b id="okNom"></b> ! Votre commande du plan <b id="okPlan"></b> est bien enregistrée.</p>
+      <p style="color:var(--muted);margin-top:8px">Vous recevez une <b>confirmation par email</b> avec les coordonnées de paiement (virement ou message privé). Votre accès démarre dès réception du paiement.</p>
+      <a class="btn accent" style="width:100%;margin-top:18px" href="dashboard.html">Explorer l'espace membre (démo) →</a>
     </div>
 
     <div>
@@ -138,7 +142,7 @@
         <a href="dashboard.html">Espace membre</a>
       </div>
     </div>
-    <div class="foot-bottom">© 2026 PreuveIA — Analyses statistiques locales — paiement sécurisé par Stripe.</div>
+    <div class="foot-bottom">© 2026 PreuveIA — Analyses statistiques locales — paiement par virement ou message privé, confirmation par email.</div>
   </div>
 </footer>
 
@@ -163,16 +167,23 @@
     for (var r = 0; r < radios.length; r++) radios[r].checked = radios[r].value === planInit;
   }
 
+  var PLANS_INFO = {
+    authenticite: { nom: 'Authenticité', prix: '29 €/mois' },
+    createur: { nom: 'Créateur', prix: '49 €/mois' },
+    academie: { nom: 'Académie', prix: '79 €/mois' }
+  };
+
   document.getElementById('btnPayer').addEventListener('click', function () {
     var plan = (document.querySelector('input[name="plan"]:checked') || {}).value || '';
+    var info = PLANS_INFO[plan] || { nom: plan, prix: '' };
     var donnees = {
       nom: document.getElementById('iNom').value,
       email: document.getElementById('iEmail').value,
-      mdp: document.getElementById('iMdp').value,
-      plan: plan
+      plan: plan,
+      planNom: info.nom + (info.prix ? ' — ' + info.prix : '')
     };
     var v = P.Inscription.valider(donnees);
-    ['nom', 'email', 'mdp', 'plan'].forEach(function (champ) {
+    ['nom', 'email', 'plan'].forEach(function (champ) {
       var el = document.getElementById('i' + champ.charAt(0).toUpperCase() + champ.slice(1));
       var err = document.getElementById('err' + champ.charAt(0).toUpperCase() + champ.slice(1));
       if (!el || !err) return;
@@ -183,21 +194,35 @@
       return;
     }
     var btn = document.getElementById('btnPayer');
+    var errEl = document.getElementById('errCommande');
+    errEl.style.display = 'none';
+    errEl.textContent = '';
     btn.disabled = true;
-    btn.textContent = 'Redirection vers le paiement sécurisé Stripe…';
-    P.Inscription.simulerPaiement(donnees).then(function (res) {
-      var compte = {
+    btn.textContent = 'Envoi en cours…';
+    P.Inscription.envoyerCommande(donnees).then(function () {
+      // Démo : le compte local reste utilisable dans l'espace membre ;
+      // la commande réelle, elle, part bien par EmailJS.
+      P.Common.setCompte({
         nom: donnees.nom.trim(),
         email: donnees.email.trim(),
         plan: donnees.plan,
         depuis: new Date().toISOString(),
         essaiFin: new Date(Date.now() + P.TARIFS.ESSAI_JOURS * 24 * 3600 * 1000).toISOString(),
         statut: 'actif',
-        transaction: res.transaction,
-        paiement: 'test-simule'
-      };
-      P.Common.setCompte(compte);
-      location.href = 'dashboard.html?bienvenue=1';
+        transaction: 'commande-emailjs-' + Date.now(),
+        paiement: 'commande-emailjs'
+      });
+      document.querySelector('.form-card').style.display = 'none';
+      document.getElementById('okNom').textContent = donnees.nom.trim();
+      document.getElementById('okPlan').textContent = donnees.planNom;
+      document.getElementById('commande-ok').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, function (err) {
+      btn.disabled = false;
+      btn.textContent = 'Commander →';
+      errEl.textContent = (err && err.message) ||
+        "L'envoi a échoué. Vérifiez votre connexion puis réessayez, ou écrivez-nous à agentiadeploiement@gmail.com.";
+      errEl.style.display = 'block';
     });
   });
 })();

@@ -120,7 +120,7 @@
   var plan = P.TARIFS.plan(compte.plan) || { nom: compte.plan, prix: '—' };
   document.getElementById('dashNom').textContent = compte.nom;
   document.getElementById('dashSousTitre').textContent = compte.email + ' — inscrit le ' + P.Common.formatDate(compte.depuis) +
-    (compte.paiement === 'test-simule' ? ' — commande enregistrée (paiement par virement ou message privé)' : '');
+    (compte.paiement === 'test-simule' || compte.paiement === 'commande-emailjs' ? ' — commande enregistrée (paiement par virement ou message privé)' : '');
   document.getElementById('kpiPlan').textContent = plan.nom + ' — ' + plan.prix + ' €/mois';
 
   var quota = P.Common.quotaRestant(compte);
