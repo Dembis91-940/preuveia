@@ -119,8 +119,37 @@
     cleCompte: LS_ACCOUNT
   };
 
+  /* ---------- Animation au scroll (reveal) ---------- */
+  Common.initReveal = function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      for (var i = 0; i < els.length; i++) els[i].classList.add('visible');
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      for (var j = 0; j < entries.length; j++) {
+        if (entries[j].isIntersecting) {
+          entries[j].target.classList.add('visible');
+          io.unobserve(entries[j].target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    for (var k = 0; k < els.length; k++) io.observe(els[k]);
+  };
+
   global.PreuveIA = global.PreuveIA || {};
   global.PreuveIA.Common = Common;
+
+  /* Auto-init reveal si la page utilise .reveal */
+  if (typeof document !== 'undefined') {
+    var initR = function () { Common.initReveal(); };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initR);
+    } else {
+      initR();
+    }
+  }
 
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Common;

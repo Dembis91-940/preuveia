@@ -49,7 +49,7 @@
 <section class="hero-mini">
   <div class="wrap">
     <div class="breadcrumb"><a href="index.html">Accueil</a> / Tarifs</div>
-    <h1>Un abonnement qui se rembourse avec une seule vente</h1>
+    <h1 class="reveal" class="reveal">Un abonnement qui se rembourse avec une seule vente</h1>
     <p class="sub">Une formation vendue en moyenne 49-99 € couvre 1 à 2 mois d'abonnement. Essai gratuit 7 jours, sans carte bancaire. Garantie satisfait ou remboursé 14 jours.</p>
   </div>
 </section>
@@ -57,7 +57,7 @@
 <section class="soft">
   <div class="wrap">
     <div class="plans">
-      <div class="plan">
+      <div class="plan reveal"">
         <h3>Authenticité</h3>
         <div class="price">29 €<span class="per">/mois</span></div>
         <div class="tagline">Pour valider vos premiers contenus et rassurer vos premiers acheteurs.</div>
@@ -70,7 +70,7 @@
         </ul>
         <a class="btn ghost" href="inscription.html?plan=authenticite">Essayer 7 jours gratuits</a>
       </div>
-      <div class="plan featured">
+      <div class="plan reveal" featured">
         <div class="tag">Le plus choisi</div>
         <h3>Créateur</h3>
         <div class="price">49 €<span class="per">/mois</span></div>
@@ -85,7 +85,7 @@
         </ul>
         <a class="btn accent" href="inscription.html?plan=createur">Choisir Créateur</a>
       </div>
-      <div class="plan">
+      <div class="plan reveal"">
         <h3>Académie</h3>
         <div class="price">79 €<span class="per">/mois</span></div>
         <div class="tagline">Pour les studios et équipes qui publient plusieurs formations.</div>
@@ -202,6 +202,10 @@
 
 <script>
 (function(){function u(){var s=location.pathname.split('/').filter(Boolean),n=Math.max(0,s.length-2),p='';while(n--){p+='../';}var c=document.createElement('script');c.src=p+'voice-config.js';c.onload=function(){var w=document.createElement('script');w.src=p+'voice-widget.js';document.body.appendChild(w);};document.body.appendChild(c);}u();})();
+</script>
+<script>
+/* Animation au scroll : .reveal → .visible */
+(function(){function r(){var e=document.querySelectorAll('.reveal');if(!e.length)return;if(!('IntersectionObserver'in window)){for(var i=0;i<e.length;i++)e[i].classList.add('visible');return;}var io=new IntersectionObserver(function(en){for(var j=0;j<en.length;j++){if(en[j].isIntersecting){en[j].target.classList.add('visible');io.unobserve(en[j].target);}}},{threshold:.12,rootMargin:'0px 0px -40px 0px'});for(var k=0;k<e.length;k++)io.observe(e[k]);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',r);}else{r();}})();
 </script>
 </body>
 </html>
