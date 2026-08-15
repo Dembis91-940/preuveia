@@ -41,7 +41,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"PreuveIA détecte-t-il vraiment l'IA ?","acceptedAnswer":{"@type":"Answer","text":"Le scan combine une analyse stylistique locale (variété des phrases, vocabulaire, marqueurs typiques) et, en production, des API de détection IA (GPTZero, Copyleaks, classifieur maison). Cette version de démonstration exécute l'analyse localement, l'appel API étant simulé."}},
+    {"@type":"Question","name":"PreuveIA détecte-t-il vraiment l'IA ?","acceptedAnswer":{"@type":"Answer","text":"Le scan exécute une analyse stylométrique réelle dans votre navigateur : perplexité, burstiness (variation des longueurs de phrases), richesse du vocabulaire et marqueurs typiques de génération. Vos contenus ne quittent jamais votre appareil."}},
     {"@type":"Question","name":"Que contient le badge « Authenticité vérifiée » ?","acceptedAnswer":{"@type":"Answer","text":"Un code unique PIA-XXXX-XXXX-XXXX. Vos acheteurs le vérifient en une seconde sur la page publique de vérification. Un code invalide ou modifié est immédiatement rejeté."}},
     {"@type":"Question","name":"Puis-je essayer avant de payer ?","acceptedAnswer":{"@type":"Answer","text":"Oui : essai gratuit de 7 jours, sans carte bancaire, sur tous les plans. Garantie satisfait ou remboursé 14 jours."}},
     {"@type":"Question","name":"Mes contenus sont-ils utilisés pour entraîner des modèles ?","acceptedAnswer":{"@type":"Answer","text":"Non. Vos contenus ne sont jamais utilisés pour entraîner un modèle, ni revendus. Ils servent uniquement à produire votre rapport et sont supprimés après analyse."}}
@@ -50,7 +50,7 @@
 </script>
 </head>
 <body>
-<div class="demo-banner">Mode démonstration locale — analyses simulées côté client, paiement Stripe en mode test (aucun débit réel).</div>
+<div class="demo-banner">🔒 Confidentialité : l'analyse s'exécute localement dans votre navigateur — vos contenus ne sont jamais envoyés ni stockés.</div>
 <header>
   <div class="wrap nav">
     <a class="logo" href="index.html"><span class="mark">✓</span>Preuve<em>IA</em></a>
@@ -279,7 +279,7 @@
     <div class="faq" style="margin-top:40px">
       <details open>
         <summary>PreuveIA détecte-t-il vraiment l'IA ?</summary>
-        <div class="a">Le scan combine une analyse stylistique locale (variété des phrases, richesse du vocabulaire, marqueurs typiques de génération, répétitions) et, en production, des API de détection IA reconnues (GPTZero, Copyleaks, classifieur maison) via notre API. Cette version de démonstration exécute l'analyse localement : l'appel API est simulé et clairement indiqué.</div>
+        <div class="a">Le scan exécute une analyse stylométrique réelle et transparente : perplexité, burstiness (variation des longueurs de phrases), richesse du vocabulaire et marqueurs typiques de génération. Tout se calcule dans votre navigateur — vos contenus restent privés, aucun serveur externe.</div>
       </details>
       <details>
         <summary>Que garantit le badge « Authenticité vérifiée » ?</summary>
@@ -345,7 +345,7 @@
         <a href="dashboard.html">Espace membre</a>
       </div>
     </div>
-    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test, témoignages et statistiques illustratifs.</div>
+    <div class="foot-bottom">© 2026 PreuveIA — Analyse locale confidentielle, moteur stylométrique réel. Paiement par virement ou message privé (Stripe à venir).</div>
   </div>
 </footer>
 

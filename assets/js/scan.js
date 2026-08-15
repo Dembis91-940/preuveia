@@ -185,28 +185,9 @@
     return Math.round(clamp(cv * 160, 5, 97));
   }
 
-  function detecterViaAPI(texte, opts) {
-    opts = opts || {};
-    return new Promise(function (resolve, reject) {
-      if (opts.simulerPanne) {
-        reject(new Error('Analyse croisée indisponible'));
-        return;
-      }
-      var local = analyserLocal(texte);
-      var perp = scorePerplexite(texte);
-      var burst = scoreBurstiness(texte);
-      var score = Math.round(local.score * 0.6 + (perp * 0.5 + burst * 0.5) * 0.4);
-      resolve({
-        fournisseur: 'Moteur PreuveIA v2 (perplexité + burstiness)',
-        mode: 'statistique',
-        confiance: clamp(score / 100, 0.05, 0.97),
-        score: Math.round(clamp(score, 0, 100))
-      });
-    });
-  }
-
   /**
-   * Analyse complète. opts.api = true → fusionne l'API placeholder (60 % local / 40 % API).
+   * Analyse complète — moteur stylométrique local réel (perplexité + burstiness).
+   * Vos contenus ne quittent jamais l'appareil.
    * Retourne une Promise. Erreur si texte trop court ou trop long.
    */
   function analyser(texte, opts) {
@@ -221,24 +202,7 @@
         return;
       }
       var local = analyserLocal(texte);
-      if (!opts.api) {
-        resolve({ local: local, api: null, score: local.score, verdict: local.verdict, metriques: local.metriques, details: local.details });
-        return;
-      }
-      detecterViaAPI(texte, opts).then(function (api) {
-        var score = Math.round(local.score * 0.6 + api.score * 0.4);
-        var verdict = verdictPour(score);
-        resolve({
-          local: local, api: api, score: score, verdict: verdict,
-          metriques: local.metriques, details: local.details
-        });
-      }, function (err) {
-        // Fallback local propre si l'API est en panne
-        resolve({
-          local: local, api: null, apiPanne: true, score: local.score,
-          verdict: local.verdict, metriques: local.metriques, details: local.details
-        });
-      });
+      resolve({ local: local, api: null, score: local.score, verdict: local.verdict, metriques: local.metriques, details: local.details });
     });
   }
 
@@ -248,7 +212,6 @@
     VERDICTS: VERDICTS,
     MARQUEURS_IA: MARQUEURS_IA,
     analyserLocal: analyserLocal,
-    detecterViaAPI: detecterViaAPI,
     analyser: analyser,
     verdictPour: verdictPour
   };

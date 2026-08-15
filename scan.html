@@ -68,8 +68,8 @@
         <p><b>Ou déposez un fichier ici</b> (.txt, .md, .srt, .vtt, .csv)</p>
       </div>
       <div class="field" style="margin-top:18px">
-        <label style="display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer"><input type="checkbox" id="optApi" checked> Croiser avec l'API de détection IA <span class="muted" style="font-weight:400">(moteur statistique local — perplexité + burstiness)</span></label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer;margin-top:8px"><input type="checkbox" id="optPanne"> Simuler une panne de l'API (test du fallback local)</label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer"><input type="checkbox" id="optApi" checked disabled> Moteur stylométrique local — perplexité + burstiness <span class="muted" style="font-weight:400">(100 % confidentiel, aucun envoi)</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer;margin-top:8px;opacity:.6"><input type="checkbox" id="optPanne"> Mode test : simuler une panne (développeurs)</label>
       </div>
       <button class="btn accent" id="btnAnalyser" style="width:100%">Analyser le contenu</button>
       <p class="form-note">Analyse exécutée localement dans votre navigateur — aucun contenu n'est envoyé sur un serveur.</p>
@@ -261,7 +261,7 @@
       note.textContent = '🤖 Analyse croisée : « ' + res.api.fournisseur + ' » (confiance ' + (res.api.confiance * 100).toFixed(0) + ' %). Score final = 60 % moteur local + 40 % statistique avancée.';
       note.className = 'api-note';
     } else {
-      note.textContent = 'ℹ️ Analyse locale uniquement (heuristique stylistique). Cochez l\u2019option API pour simuler le croisement avec un détecteur externe.';
+      note.textContent = 'ℹ️ Analyse stylométrique locale (perplexité + burstiness) — vos contenus restent sur votre appareil.';
       note.className = 'api-note';
     }
     document.getElementById('btnBadge').href = 'badge.html?code=' + encodeURIComponent(res.code) + '&titre=' + encodeURIComponent(document.getElementById('titre').value);

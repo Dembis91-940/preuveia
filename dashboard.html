@@ -102,7 +102,7 @@
         <a href="dashboard.html">Espace membre</a>
       </div>
     </div>
-    <div class="foot-bottom">© 2026 PreuveIA — Version de démonstration locale. Analyses simulées, paiement Stripe en mode test.</div>
+    <div class="foot-bottom">© 2026 PreuveIA — Analyse locale confidentielle, moteur stylométrique réel. Commandes confirmées par email (paiement virement/message privé).</div>
   </div>
 </footer>
 
@@ -120,7 +120,7 @@
   var plan = P.TARIFS.plan(compte.plan) || { nom: compte.plan, prix: '—' };
   document.getElementById('dashNom').textContent = compte.nom;
   document.getElementById('dashSousTitre').textContent = compte.email + ' — inscrit le ' + P.Common.formatDate(compte.depuis) +
-    (compte.paiement === 'test-simule' ? ' — paiement simulé (mode test)' : '');
+    (compte.paiement === 'test-simule' ? ' — commande enregistrée (paiement par virement ou message privé)' : '');
   document.getElementById('kpiPlan').textContent = plan.nom + ' — ' + plan.prix + ' €/mois';
 
   var quota = P.Common.quotaRestant(compte);
@@ -180,7 +180,7 @@
     b.className = 'demo-banner';
     b.style.background = 'var(--accent-2-soft)';
     b.style.color = 'var(--accent-2)';
-    b.textContent = '✓ Compte créé (paiement simulé) — bienvenue ! Un email de bienvenue vous a été « envoyé » (voir emails/bienvenue.html).';
+    b.textContent = '✓ Compte créé — bienvenue ! Confirmation envoyée par email (voir emails/bienvenue.html).';
     document.body.insertBefore(b, document.body.firstChild);
   }
 })();

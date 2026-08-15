@@ -124,9 +124,9 @@
     y -= 30;
 
     // Note
-    L.push("BT /F1 8.5 Tf 0.357 0.392 0.447 rg 50 " + y.toFixed(2) + " Td (Rapport de démonstration généré localement. En production, l\\'analyse combine cette heuristique) Tj ET");
+    L.push("BT /F1 8.5 Tf 0.357 0.392 0.447 rg 50 " + y.toFixed(2) + " Td (Rapport généré localement. Analyse) Tj ET");
     y -= 12;
-    L.push("BT /F1 8.5 Tf 0.357 0.392 0.447 rg 50 " + y.toFixed(2) + " Td (stylistique avec des API de détection IA \\(GPTZero, Copyleaks, classifieur maison via api.preuveia.fr\\) .) Tj ET");
+    L.push("BT /F1 8.5 Tf 0.357 0.392 0.447 rg 50 " + y.toFixed(2) + " Td (stylom\\u00e9trie locale : perplexit\\u00e9, burstiness, richesse du vocabulaire) .) Tj ET");
 
     return L.join('\n') + '\n';
   }
