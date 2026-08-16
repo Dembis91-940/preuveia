@@ -8,6 +8,7 @@
   --muted:#5b6472;
   --line:#e5e1d8;
   --accent:#1649c4;
+  --accent-bright:#2f6bff;
   --accent-soft:#e8eefc;
   --accent-2:#0e9f6e;
   --accent-2-soft:#e3f5ee;
@@ -15,6 +16,8 @@
   --warn-soft:#fdf0e0;
   --danger:#b91c1c;
   --danger-soft:#fdeaea;
+  --grad:linear-gradient(100deg,#2f6bff 0%,#1649c4 55%,#0d33a0 100%);
+  --grad-cta:linear-gradient(100deg,#2f6bff 0%,#1649c4 100%);
   --radius:14px;
   --shadow:0 1px 2px rgba(17,24,39,.06),0 8px 24px -12px rgba(17,24,39,.18);
 }
@@ -53,8 +56,8 @@ h2.sec{font-size:clamp(28px,3.4vw,38px);margin-bottom:10px}
   text-decoration:none;transition:transform .12s ease,background .12s ease;
 }
 .btn:hover{background:#2a2d34;transform:translateY(-1px);color:#fff}
-.btn.accent{background:var(--accent)}
-.btn.accent:hover{background:#103a9e}
+.btn.accent{background:var(--grad-cta);box-shadow:0 6px 20px -8px rgba(22,73,196,.5)}
+.btn.accent:hover{background:linear-gradient(100deg,#3d78ff 0%,#1649c4 100%)}
 .btn.green{background:var(--accent-2)}
 .btn.green:hover{background:#0b7f58}
 .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
@@ -75,7 +78,7 @@ header{position:sticky;top:0;z-index:10;background:var(--paper);backdrop-filter:
 /* ---------- hero ---------- */
 .hero{padding:104px 0 84px;text-align:center;overflow:hidden}
 .hero h1{font-size:clamp(40px,6vw,62px);max-width:860px;margin:0 auto 20px}
-.hero h1 em{font-style:normal;color:var(--accent)}
+.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .hero .sub{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:680px;margin:0 auto 34px}
 .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .trust{margin-top:22px;font-size:14px;color:var(--muted)}
