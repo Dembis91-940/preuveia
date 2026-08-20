@@ -17,6 +17,7 @@
   --accent-soft:rgba(59,130,246,.12);
   --accent-2:#34d399;
   --accent-2-soft:rgba(52,211,153,.12);
+  --card:#0d1a33;
   --turquoise:#2dd4bf;
   --warn:#fbbf24;
   --warn-soft:rgba(251,191,36,.1);
@@ -81,7 +82,7 @@ h2.sec{font-size:clamp(28px,3.4vw,38px);margin-bottom:10px}
 header{position:sticky;top:0;z-index:10;background:var(--paper);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:8px}
-.logo .mark{width:26px;height:26px;border-radius:8px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.logo .mark{width:26px;height:26px;border-radius:8px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;color:#06121f;font-size:14px;font-weight:800}
 .logo em{font-style:normal;color:var(--accent)}
 .nav-links{display:flex;gap:26px;align-items:center}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:15px;font-weight:500}
@@ -385,7 +386,7 @@ section.dark h2,section.dark h3{color:var(--ink) !important}
 .success-box,.gate .locked,.badge-card,.verify-card,.metrics,.result-head,
 .ring-wrap,.prose .kpi-box .kpi,.summary-card,.modal-card,.script-block,
 .stat-card,.prog,.tpl,.fstep,.demo-crit,.demo-chart,.prompt-block,.template-copy,
-.badge-preview,.guarantee,.payment-box,.quiz-card{
+.badge-preview,.guarantee,.payment-box,.quiz-card,.feat,.ring-wrap .feat{
   background:var(--card) !important;
   backdrop-filter:blur(14px) saturate(150%);
   -webkit-backdrop-filter:blur(14px) saturate(150%);
@@ -607,4 +608,5 @@ section.dark .countdown{background:var(--accent-soft) !important}
 .stripe-badge{background:linear-gradient(100deg,#3b82f6,#2dd4bf) !important;box-shadow:0 0 18px var(--neon)}
 
 /* ---------- V3 : contraste CTA ---------- */
-.btn.accent,.btn.green,.nav .btn{color:#06121f !important;text-shadow:none !important}
+.btn.accent,.btn.green{color:#06121f !important;text-shadow:none !important}
+.nav .btn.ghost{color:var(--ink) !important}
