@@ -9,7 +9,7 @@
   var cfg = window.VOICE_CONFIG || {};
   if (!cfg.assistantId || !cfg.publicKey) return; // non configuré : rien à afficher
 
-  var ACCENT = cfg.accent || '#111827';
+  var ACCENT = cfg.accent || '#3b82f6';
 
   /* ---------- Bouton ---------- */
   var btn = document.createElement('div');
@@ -24,7 +24,7 @@
   /* ---------- Statut ---------- */
   var status = document.createElement('div');
   status.id = 'vb-status';
-  status.style.cssText = 'position:fixed;bottom:90px;right:92px;background:#111827;color:#fff;padding:10px 16px;border-radius:12px;font-size:13px;display:none;z-index:99998;box-shadow:0 4px 16px rgba(0,0,0,.3);max-width:240px;text-align:center;';
+  status.style.cssText = 'position:fixed;bottom:90px;right:92px;background:#060d1f;color:#fff;padding:10px 16px;border-radius:12px;font-size:13px;display:none;z-index:99998;box-shadow:0 4px 16px rgba(0,0,0,.3);max-width:240px;text-align:center;';
   status.innerHTML = '🎙️ Je vous écoute… <button id="vb-stop" style="display:block;margin:8px auto 0;background:#ef4444;color:#fff;border:none;border-radius:8px;padding:6px 16px;cursor:pointer;font-size:12px;">Arrêter</button>';
   document.body.appendChild(status);
 
