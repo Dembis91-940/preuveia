@@ -610,3 +610,12 @@ section.dark .countdown{background:var(--accent-soft) !important}
 /* ---------- V3 : contraste CTA ---------- */
 .btn.accent,.btn.green{color:#06121f !important;text-shadow:none !important}
 .nav .btn.ghost{color:var(--ink) !important}
+.logo .mark{color:#06121f !important;background:var(--accent) !important}
+.sample{background:#0d1a33 !important;border-color:rgba(255,255,255,.12) !important}
+/* Correctif AA : initiales .ava accent sur accent-soft sombre = 4.07 → accent-bright */
+.testi .ava{color:var(--accent-bright) !important}
+.sample h4,.sample .bar .row span,.sample .bar .row b{color:#EDF3FF !important}
+.sample .note{color:#94A7CF !important}
+.sample .kpi{background:rgba(255,255,255,.05) !important}
+.sample .kpi div{color:#EDF3FF !important}
+.sample .kpi div[style*="color"]{color:var(--accent-2) !important}
